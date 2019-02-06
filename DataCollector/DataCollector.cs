@@ -39,7 +39,7 @@ namespace DataCollector
 
 			foreach (string portName in System.IO.Ports.SerialPort.GetPortNames())
 			{
-				if (Convert.ToInt16(portName.Substring(3)) <= 3)
+				if (Convert.ToInt16(portName.Substring(3)) <= 5)
 					continue;
 
 				var port = new SerialPort(portName, 115200, Parity.None, 8, StopBits.One);
