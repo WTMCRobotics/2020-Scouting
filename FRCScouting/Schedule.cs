@@ -37,7 +37,7 @@ namespace FRCScouting
                     newMatch.BlueArr[i] = int.Parse(words[i + 3]);
 
                 matchList.Add(newMatch); //Assign local object to its place in matchArray (index is match number)
-                Console.WriteLine("Run " + count); //For testing
+                // Console.WriteLine("Run " + count); //For testing
                 count++;
             }
             if (matchList.Count != 80)

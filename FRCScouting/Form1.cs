@@ -22,8 +22,9 @@ namespace FRCScouting
 
             _robotData = new RobotData(_schedule.MatchList);
             //_robotData = new RobotData();
-            _robotData.TestData();
-            _robotData.LoadData();
+            _robotData.TestData(); //Loads test data for 1 match worth of data
+            _robotData.LoadData(); //Loads data from match into text file
+            _robotData.RetrieveData(); //Loads data from text file into RobotData.cs's _matchList
            
         }
 
