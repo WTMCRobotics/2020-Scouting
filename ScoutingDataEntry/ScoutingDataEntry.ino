@@ -75,7 +75,7 @@ void setup()
 	pinMode(19, OUTPUT);
 	digitalWrite(19, HIGH);
 
-	PollSwitches();
+	_switchData = PollSwitches();
 
 	Serial.begin(115200);
 }
@@ -87,7 +87,6 @@ void loop()
 {
 	static char ch;
 	static uint32_t lastMillis = 0;
-//	Serial.println(micros());
 
 	DebounceButtons();
 	PollButtons();
@@ -202,6 +201,15 @@ void SetLED(int action)
 	}
 }
 
+uint16_t PollSwitches()
+{
+	uint8_t data = 0;
+	if (!digitalRead(10)) data |= 0x01;
+	if (!digitalRead(11)) data |= 0x02;
+	if (!digitalRead(12)) data |= 0x04;
+	return data;
+}
+
 void PollButtons()
 {
 	static uint16_t lastData = 0;
@@ -261,15 +269,6 @@ void DebounceButtons()
 		buttonVal >>= 1;	
 		buttonBit <<= 1;
 	}
-}
-
-uint16_t PollSwitches()
-{
-	uint8_t data = 0;
-	if (!digitalRead(10)) data |= 0x01;
-	if (!digitalRead(11)) data |= 0x02;
-	if (!digitalRead(12)) data |= 0x04;
-	return data;
 }
 
 void ResetAllCounts()
