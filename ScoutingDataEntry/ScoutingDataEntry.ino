@@ -24,7 +24,7 @@
 #define NUMBER_OF_BUTTONS 8
 #define DEBOUNCE_LENGTH  14
 
-char version[]  = "v0.3";
+char version[]  = "v0.4";
 
 // LED Commands
 enum
