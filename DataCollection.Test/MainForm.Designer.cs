@@ -39,7 +39,9 @@
 			this.lblPolling = new System.Windows.Forms.Label();
 			this.updnPolling = new System.Windows.Forms.NumericUpDown();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.label1 = new System.Windows.Forms.Label();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.label2 = new System.Windows.Forms.Label();
 			this.btn21 = new System.Windows.Forms.Button();
 			this.btn22 = new System.Windows.Forms.Button();
 			this.btn23 = new System.Windows.Forms.Button();
@@ -49,6 +51,7 @@
 			this.btn24 = new System.Windows.Forms.Button();
 			this.btn25 = new System.Windows.Forms.Button();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.label3 = new System.Windows.Forms.Label();
 			this.btn31 = new System.Windows.Forms.Button();
 			this.btn32 = new System.Windows.Forms.Button();
 			this.btn33 = new System.Windows.Forms.Button();
@@ -58,6 +61,7 @@
 			this.btn34 = new System.Windows.Forms.Button();
 			this.btn35 = new System.Windows.Forms.Button();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.label6 = new System.Windows.Forms.Label();
 			this.btn41 = new System.Windows.Forms.Button();
 			this.btn42 = new System.Windows.Forms.Button();
 			this.btn43 = new System.Windows.Forms.Button();
@@ -67,6 +71,7 @@
 			this.btn44 = new System.Windows.Forms.Button();
 			this.btn45 = new System.Windows.Forms.Button();
 			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.label5 = new System.Windows.Forms.Label();
 			this.btn51 = new System.Windows.Forms.Button();
 			this.btn52 = new System.Windows.Forms.Button();
 			this.btn53 = new System.Windows.Forms.Button();
@@ -76,6 +81,7 @@
 			this.btn54 = new System.Windows.Forms.Button();
 			this.btn55 = new System.Windows.Forms.Button();
 			this.groupBox6 = new System.Windows.Forms.GroupBox();
+			this.label4 = new System.Windows.Forms.Label();
 			this.btn61 = new System.Windows.Forms.Button();
 			this.btn62 = new System.Windows.Forms.Button();
 			this.btn63 = new System.Windows.Forms.Button();
@@ -85,6 +91,7 @@
 			this.btn64 = new System.Windows.Forms.Button();
 			this.btn65 = new System.Windows.Forms.Button();
 			this.groupBox7 = new System.Windows.Forms.GroupBox();
+			this.label8 = new System.Windows.Forms.Label();
 			this.btn71 = new System.Windows.Forms.Button();
 			this.btn72 = new System.Windows.Forms.Button();
 			this.btn73 = new System.Windows.Forms.Button();
@@ -94,6 +101,7 @@
 			this.btn74 = new System.Windows.Forms.Button();
 			this.btn75 = new System.Windows.Forms.Button();
 			this.groupBox0 = new System.Windows.Forms.GroupBox();
+			this.label7 = new System.Windows.Forms.Label();
 			this.btn01 = new System.Windows.Forms.Button();
 			this.btn02 = new System.Windows.Forms.Button();
 			this.btn03 = new System.Windows.Forms.Button();
@@ -103,14 +111,9 @@
 			this.btn04 = new System.Windows.Forms.Button();
 			this.btn05 = new System.Windows.Forms.Button();
 			this.btnExit = new System.Windows.Forms.Button();
-			this.label1 = new System.Windows.Forms.Label();
-			this.label2 = new System.Windows.Forms.Label();
-			this.label3 = new System.Windows.Forms.Label();
-			this.label4 = new System.Windows.Forms.Label();
-			this.label5 = new System.Windows.Forms.Label();
-			this.label6 = new System.Windows.Forms.Label();
-			this.label7 = new System.Windows.Forms.Label();
-			this.label8 = new System.Windows.Forms.Label();
+			this.label9 = new System.Windows.Forms.Label();
+			this.cbMatchMode = new System.Windows.Forms.ComboBox();
+			this.btnNext = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.updnPolling)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -253,6 +256,17 @@
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Controller 1";
 			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.BackColor = System.Drawing.Color.Red;
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label1.Location = new System.Drawing.Point(66, 22);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(30, 31);
+			this.label1.TabIndex = 9;
+			this.label1.Text = "1";
+			// 
 			// groupBox2
 			// 
 			this.groupBox2.BackColor = System.Drawing.SystemColors.Info;
@@ -272,6 +286,17 @@
 			this.groupBox2.TabIndex = 13;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Controller 2";
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.BackColor = System.Drawing.Color.Red;
+			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label2.Location = new System.Drawing.Point(66, 22);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(30, 31);
+			this.label2.TabIndex = 10;
+			this.label2.Text = "2";
 			// 
 			// btn21
 			// 
@@ -365,6 +390,17 @@
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Controller 3";
 			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.BackColor = System.Drawing.Color.Red;
+			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label3.Location = new System.Drawing.Point(66, 22);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(30, 31);
+			this.label3.TabIndex = 11;
+			this.label3.Text = "3";
+			// 
 			// btn31
 			// 
 			this.btn31.Location = new System.Drawing.Point(6, 18);
@@ -456,6 +492,17 @@
 			this.groupBox4.TabIndex = 15;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Controller 4";
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.BackColor = System.Drawing.Color.CornflowerBlue;
+			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label6.Location = new System.Drawing.Point(66, 22);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(30, 31);
+			this.label6.TabIndex = 11;
+			this.label6.Text = "4";
 			// 
 			// btn41
 			// 
@@ -549,6 +596,17 @@
 			this.groupBox5.TabStop = false;
 			this.groupBox5.Text = "Controller 5";
 			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.BackColor = System.Drawing.Color.CornflowerBlue;
+			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label5.Location = new System.Drawing.Point(66, 22);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(30, 31);
+			this.label5.TabIndex = 11;
+			this.label5.Text = "5";
+			// 
 			// btn51
 			// 
 			this.btn51.Location = new System.Drawing.Point(6, 19);
@@ -641,6 +699,17 @@
 			this.groupBox6.TabStop = false;
 			this.groupBox6.Text = "Controller 6";
 			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.BackColor = System.Drawing.Color.CornflowerBlue;
+			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label4.Location = new System.Drawing.Point(66, 22);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(30, 31);
+			this.label4.TabIndex = 11;
+			this.label4.Text = "6";
+			// 
 			// btn61
 			// 
 			this.btn61.Location = new System.Drawing.Point(6, 18);
@@ -726,81 +795,92 @@
 			this.groupBox7.Controls.Add(this.btn74);
 			this.groupBox7.Controls.Add(this.btn75);
 			this.groupBox7.Enabled = false;
-			this.groupBox7.Location = new System.Drawing.Point(136, 391);
+			this.groupBox7.Location = new System.Drawing.Point(615, 232);
 			this.groupBox7.Name = "groupBox7";
-			this.groupBox7.Size = new System.Drawing.Size(97, 115);
+			this.groupBox7.Size = new System.Drawing.Size(172, 153);
 			this.groupBox7.TabIndex = 18;
 			this.groupBox7.TabStop = false;
 			this.groupBox7.Text = "Controller 7";
+			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.BackColor = System.Drawing.Color.Yellow;
+			this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label8.Location = new System.Drawing.Point(68, 22);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(30, 31);
+			this.label8.TabIndex = 12;
+			this.label8.Text = "7";
 			// 
 			// btn71
 			// 
 			this.btn71.Location = new System.Drawing.Point(6, 18);
 			this.btn71.Name = "btn71";
-			this.btn71.Size = new System.Drawing.Size(24, 24);
+			this.btn71.Size = new System.Drawing.Size(48, 38);
 			this.btn71.TabIndex = 1;
 			this.btn71.Text = "1";
 			this.btn71.UseVisualStyleBackColor = true;
 			// 
 			// btn72
 			// 
-			this.btn72.Location = new System.Drawing.Point(66, 18);
+			this.btn72.Location = new System.Drawing.Point(110, 19);
 			this.btn72.Name = "btn72";
-			this.btn72.Size = new System.Drawing.Size(24, 24);
+			this.btn72.Size = new System.Drawing.Size(48, 38);
 			this.btn72.TabIndex = 8;
 			this.btn72.Text = "2";
 			this.btn72.UseVisualStyleBackColor = true;
 			// 
 			// btn73
 			// 
-			this.btn73.Location = new System.Drawing.Point(6, 48);
+			this.btn73.Location = new System.Drawing.Point(6, 62);
 			this.btn73.Name = "btn73";
-			this.btn73.Size = new System.Drawing.Size(24, 24);
+			this.btn73.Size = new System.Drawing.Size(48, 38);
 			this.btn73.TabIndex = 7;
 			this.btn73.Text = "3";
 			this.btn73.UseVisualStyleBackColor = true;
 			// 
 			// btn76
 			// 
-			this.btn76.Location = new System.Drawing.Point(6, 78);
+			this.btn76.Location = new System.Drawing.Point(6, 106);
 			this.btn76.Name = "btn76";
-			this.btn76.Size = new System.Drawing.Size(24, 24);
+			this.btn76.Size = new System.Drawing.Size(48, 38);
 			this.btn76.TabIndex = 6;
 			this.btn76.Text = "6";
 			this.btn76.UseVisualStyleBackColor = true;
 			// 
 			// btn78
 			// 
-			this.btn78.Location = new System.Drawing.Point(66, 78);
+			this.btn78.Location = new System.Drawing.Point(110, 106);
 			this.btn78.Name = "btn78";
-			this.btn78.Size = new System.Drawing.Size(24, 24);
+			this.btn78.Size = new System.Drawing.Size(48, 38);
 			this.btn78.TabIndex = 3;
 			this.btn78.Text = "8";
 			this.btn78.UseVisualStyleBackColor = true;
 			// 
 			// btn77
 			// 
-			this.btn77.Location = new System.Drawing.Point(36, 78);
+			this.btn77.Location = new System.Drawing.Point(58, 106);
 			this.btn77.Name = "btn77";
-			this.btn77.Size = new System.Drawing.Size(24, 24);
+			this.btn77.Size = new System.Drawing.Size(48, 38);
 			this.btn77.TabIndex = 5;
 			this.btn77.Text = "7";
 			this.btn77.UseVisualStyleBackColor = true;
 			// 
 			// btn74
 			// 
-			this.btn74.Location = new System.Drawing.Point(36, 48);
+			this.btn74.Location = new System.Drawing.Point(58, 62);
 			this.btn74.Name = "btn74";
-			this.btn74.Size = new System.Drawing.Size(24, 24);
+			this.btn74.Size = new System.Drawing.Size(48, 38);
 			this.btn74.TabIndex = 4;
 			this.btn74.Text = "4";
 			this.btn74.UseVisualStyleBackColor = true;
 			// 
 			// btn75
 			// 
-			this.btn75.Location = new System.Drawing.Point(66, 48);
+			this.btn75.Location = new System.Drawing.Point(110, 62);
 			this.btn75.Name = "btn75";
-			this.btn75.Size = new System.Drawing.Size(24, 24);
+			this.btn75.Size = new System.Drawing.Size(48, 38);
 			this.btn75.TabIndex = 2;
 			this.btn75.Text = "5";
 			this.btn75.UseVisualStyleBackColor = true;
@@ -818,81 +898,92 @@
 			this.groupBox0.Controls.Add(this.btn04);
 			this.groupBox0.Controls.Add(this.btn05);
 			this.groupBox0.Enabled = false;
-			this.groupBox0.Location = new System.Drawing.Point(24, 391);
+			this.groupBox0.Location = new System.Drawing.Point(615, 73);
 			this.groupBox0.Name = "groupBox0";
-			this.groupBox0.Size = new System.Drawing.Size(97, 115);
+			this.groupBox0.Size = new System.Drawing.Size(172, 153);
 			this.groupBox0.TabIndex = 19;
 			this.groupBox0.TabStop = false;
 			this.groupBox0.Text = "Controller 0";
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.BackColor = System.Drawing.Color.Yellow;
+			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label7.Location = new System.Drawing.Point(68, 23);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(30, 31);
+			this.label7.TabIndex = 11;
+			this.label7.Text = "0";
 			// 
 			// btn01
 			// 
 			this.btn01.Location = new System.Drawing.Point(6, 18);
 			this.btn01.Name = "btn01";
-			this.btn01.Size = new System.Drawing.Size(24, 24);
+			this.btn01.Size = new System.Drawing.Size(48, 38);
 			this.btn01.TabIndex = 1;
 			this.btn01.Text = "1";
 			this.btn01.UseVisualStyleBackColor = true;
 			// 
 			// btn02
 			// 
-			this.btn02.Location = new System.Drawing.Point(66, 18);
+			this.btn02.Location = new System.Drawing.Point(110, 18);
 			this.btn02.Name = "btn02";
-			this.btn02.Size = new System.Drawing.Size(24, 24);
+			this.btn02.Size = new System.Drawing.Size(48, 38);
 			this.btn02.TabIndex = 8;
 			this.btn02.Text = "2";
 			this.btn02.UseVisualStyleBackColor = true;
 			// 
 			// btn03
 			// 
-			this.btn03.Location = new System.Drawing.Point(6, 48);
+			this.btn03.Location = new System.Drawing.Point(6, 62);
 			this.btn03.Name = "btn03";
-			this.btn03.Size = new System.Drawing.Size(24, 24);
+			this.btn03.Size = new System.Drawing.Size(48, 38);
 			this.btn03.TabIndex = 7;
 			this.btn03.Text = "3";
 			this.btn03.UseVisualStyleBackColor = true;
 			// 
 			// btn06
 			// 
-			this.btn06.Location = new System.Drawing.Point(6, 78);
+			this.btn06.Location = new System.Drawing.Point(6, 106);
 			this.btn06.Name = "btn06";
-			this.btn06.Size = new System.Drawing.Size(24, 24);
+			this.btn06.Size = new System.Drawing.Size(48, 38);
 			this.btn06.TabIndex = 6;
 			this.btn06.Text = "6";
 			this.btn06.UseVisualStyleBackColor = true;
 			// 
 			// btn08
 			// 
-			this.btn08.Location = new System.Drawing.Point(66, 78);
+			this.btn08.Location = new System.Drawing.Point(110, 106);
 			this.btn08.Name = "btn08";
-			this.btn08.Size = new System.Drawing.Size(24, 24);
+			this.btn08.Size = new System.Drawing.Size(48, 38);
 			this.btn08.TabIndex = 3;
 			this.btn08.Text = "8";
 			this.btn08.UseVisualStyleBackColor = true;
 			// 
 			// btn07
 			// 
-			this.btn07.Location = new System.Drawing.Point(36, 78);
+			this.btn07.Location = new System.Drawing.Point(58, 106);
 			this.btn07.Name = "btn07";
-			this.btn07.Size = new System.Drawing.Size(24, 24);
+			this.btn07.Size = new System.Drawing.Size(48, 38);
 			this.btn07.TabIndex = 5;
 			this.btn07.Text = "7";
 			this.btn07.UseVisualStyleBackColor = true;
 			// 
 			// btn04
 			// 
-			this.btn04.Location = new System.Drawing.Point(36, 48);
+			this.btn04.Location = new System.Drawing.Point(58, 62);
 			this.btn04.Name = "btn04";
-			this.btn04.Size = new System.Drawing.Size(24, 24);
+			this.btn04.Size = new System.Drawing.Size(48, 38);
 			this.btn04.TabIndex = 4;
 			this.btn04.Text = "4";
 			this.btn04.UseVisualStyleBackColor = true;
 			// 
 			// btn05
 			// 
-			this.btn05.Location = new System.Drawing.Point(66, 48);
+			this.btn05.Location = new System.Drawing.Point(110, 62);
 			this.btn05.Name = "btn05";
-			this.btn05.Size = new System.Drawing.Size(24, 24);
+			this.btn05.Size = new System.Drawing.Size(48, 38);
 			this.btn05.TabIndex = 2;
 			this.btn05.Text = "5";
 			this.btn05.UseVisualStyleBackColor = true;
@@ -900,7 +991,7 @@
 			// btnExit
 			// 
 			this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnExit.Location = new System.Drawing.Point(437, 461);
+			this.btnExit.Location = new System.Drawing.Point(683, 12);
 			this.btnExit.Name = "btnExit";
 			this.btnExit.Size = new System.Drawing.Size(104, 44);
 			this.btnExit.TabIndex = 20;
@@ -908,99 +999,51 @@
 			this.btnExit.UseVisualStyleBackColor = true;
 			this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
 			// 
-			// label1
+			// label9
 			// 
-			this.label1.AutoSize = true;
-			this.label1.BackColor = System.Drawing.Color.Red;
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.Location = new System.Drawing.Point(66, 22);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(30, 31);
-			this.label1.TabIndex = 9;
-			this.label1.Text = "1";
+			this.label9.AccessibleName = "lblPolling";
+			this.label9.AutoSize = true;
+			this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label9.Location = new System.Drawing.Point(200, 14);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(91, 18);
+			this.label9.TabIndex = 21;
+			this.label9.Text = "Match Mode";
 			// 
-			// label2
+			// cbMatchMode
 			// 
-			this.label2.AutoSize = true;
-			this.label2.BackColor = System.Drawing.Color.Red;
-			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label2.Location = new System.Drawing.Point(66, 22);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(30, 31);
-			this.label2.TabIndex = 10;
-			this.label2.Text = "2";
+			this.cbMatchMode.FormattingEnabled = true;
+			this.cbMatchMode.Items.AddRange(new object[] {
+            "Reset",
+            "Waiting",
+            "Auton",
+            "Teleop",
+            "Done"});
+			this.cbMatchMode.Location = new System.Drawing.Point(203, 36);
+			this.cbMatchMode.MaxDropDownItems = 5;
+			this.cbMatchMode.Name = "cbMatchMode";
+			this.cbMatchMode.Size = new System.Drawing.Size(121, 21);
+			this.cbMatchMode.TabIndex = 22;
+			this.cbMatchMode.SelectedIndexChanged += new System.EventHandler(this.cbMatchMode_SelectedIndexChanged);
 			// 
-			// label3
+			// btnNext
 			// 
-			this.label3.AutoSize = true;
-			this.label3.BackColor = System.Drawing.Color.Red;
-			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label3.Location = new System.Drawing.Point(66, 22);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(30, 31);
-			this.label3.TabIndex = 11;
-			this.label3.Text = "3";
-			// 
-			// label4
-			// 
-			this.label4.AutoSize = true;
-			this.label4.BackColor = System.Drawing.Color.CornflowerBlue;
-			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label4.Location = new System.Drawing.Point(66, 22);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(30, 31);
-			this.label4.TabIndex = 11;
-			this.label4.Text = "6";
-			// 
-			// label5
-			// 
-			this.label5.AutoSize = true;
-			this.label5.BackColor = System.Drawing.Color.CornflowerBlue;
-			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label5.Location = new System.Drawing.Point(66, 22);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(30, 31);
-			this.label5.TabIndex = 11;
-			this.label5.Text = "5";
-			// 
-			// label6
-			// 
-			this.label6.AutoSize = true;
-			this.label6.BackColor = System.Drawing.Color.CornflowerBlue;
-			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label6.Location = new System.Drawing.Point(66, 22);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(30, 31);
-			this.label6.TabIndex = 11;
-			this.label6.Text = "4";
-			// 
-			// label7
-			// 
-			this.label7.AutoSize = true;
-			this.label7.BackColor = System.Drawing.Color.Yellow;
-			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label7.Location = new System.Drawing.Point(35, 18);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(25, 25);
-			this.label7.TabIndex = 11;
-			this.label7.Text = "0";
-			// 
-			// label8
-			// 
-			this.label8.AutoSize = true;
-			this.label8.BackColor = System.Drawing.Color.Yellow;
-			this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label8.Location = new System.Drawing.Point(35, 18);
-			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(25, 25);
-			this.label8.TabIndex = 12;
-			this.label8.Text = "7";
+			this.btnNext.Location = new System.Drawing.Point(330, 36);
+			this.btnNext.Name = "btnNext";
+			this.btnNext.Size = new System.Drawing.Size(46, 23);
+			this.btnNext.TabIndex = 23;
+			this.btnNext.Text = "Next";
+			this.btnNext.UseVisualStyleBackColor = true;
+			this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(576, 518);
+			this.ClientSize = new System.Drawing.Size(795, 392);
+			this.Controls.Add(this.btnNext);
+			this.Controls.Add(this.cbMatchMode);
+			this.Controls.Add(this.label9);
 			this.Controls.Add(this.btnExit);
 			this.Controls.Add(this.groupBox0);
 			this.Controls.Add(this.groupBox7);
@@ -1120,6 +1163,9 @@
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.Label label8;
+		public System.Windows.Forms.Label label9;
+		private System.Windows.Forms.ComboBox cbMatchMode;
+		private System.Windows.Forms.Button btnNext;
 	}
 }
 

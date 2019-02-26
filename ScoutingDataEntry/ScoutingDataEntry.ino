@@ -3,14 +3,14 @@
 	Serial Commands
 	  Match Mode
 		"MR"  reset - clear all counts
-		"MW"  countdown - flash LED in prep for game starting
+		"MW"  waiting - flash LED in prep for game starting
 		"MA"  auton - enter auton mode
 		"MT"  teleop - enter teleop mode 
 		"MD"  done - finish match
 	  Read data
 		"RV"  read version string
-		"RM"  read mode
 		"RS"  read ID switches
+		"RM"  read mode
 		"RB"  read button data
 		"RA"  read auton counts
 		"RT"  read teleop counts
@@ -24,7 +24,7 @@
 #define NUMBER_OF_BUTTONS 8
 #define DEBOUNCE_LENGTH  14
 
-char version[]  = "v0.4";
+char version[]  = "v0.5";
 
 // LED Commands
 enum
@@ -114,6 +114,7 @@ void ProcessSerialCommands()
 		switch (GetChar())
 		{
 		case 'R':	// reset
+			SetLED(ledOff);
 			ResetAllCounts();
 			_matchMode = matchReset;
 			break;
@@ -129,7 +130,7 @@ void ProcessSerialCommands()
 			SetLED(ledOff);
 			_matchMode = matchTeleop;
 			break;
-		case 'E':	// end of match
+		case 'D':	// end of match
 			SetLED(ledOff);
 			_matchMode = matchDone;
 			break;
@@ -142,9 +143,9 @@ void ProcessSerialCommands()
 		switch (GetChar())
 		{
 		case 'V': buffer = version;							break;
-		case 'M': buffer = GetModeResponse();				break;
 		case 'S': buffer = GetByteResponse(_switchData);	break;
-		case 'B': buffer = GetByteResponse(_buttons);	break;
+		case 'M': buffer = GetModeResponse();				break;
+		case 'B': buffer = GetByteResponse(_buttons);		break;
 		case 'A': buffer = GetCountResponse(_autonCount);	break;
 		case 'T': buffer = GetCountResponse(_teleopCount);	break;
 		}
@@ -312,7 +313,8 @@ char* GetCountResponse(byte* countBuf)
 		*pBuffer++ = Bin2Hex((count >> 0) & 0x0f);
 		*pBuffer++ = ',';
 	}
-	*pBuffer = '\0';
+	// replace trailing ','
+	*--pBuffer = '\0';
 	return _responseBuffer;
 }
 
