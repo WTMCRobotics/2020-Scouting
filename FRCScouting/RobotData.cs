@@ -6,21 +6,6 @@ using System.IO;
 
 namespace FRCScouting
 {
-    public class MatchData //Arduino will be writing to 6 of MatchData objects each match
-    {
-        public int TeamNumber = 0;
-        public int MatchNumber = 0;
-        public string Alliance = "";
-        public int[] ScoreArray = new int[8];
-        
-        public MatchData(int teamNum, int matchNum, string alliance)
-        {
-            TeamNumber = teamNum;
-            MatchNumber = matchNum;
-            Alliance = alliance;
-        }
-    }
-
     public class RobotData
     {
         public List<MatchData> RobotDataList = new List<MatchData>();
@@ -62,7 +47,7 @@ namespace FRCScouting
 
         public void LoadData()// Backs up data to text file TODO: Generalize beyond test data
         {
-            string path = @"C:\Users\Katie\Documents\Robotics\2019-Scouting\FRCScouting";
+            string path = @"C:\Users\Katie\Documents\Robotics\2019-Scouting\FRCScouting"; //UPDATE PATH FOR YOUR OWN COMPUTER
 
             if (!File.Exists(path))
             {
@@ -89,7 +74,7 @@ namespace FRCScouting
         }
         
 
-        public void RetrieveData() // Retrieves data from text  WORKING ON THIS
+        public void RetrieveData() // Retrieves data from text  
         {
             var file = new System.IO.StreamReader("RobotDataBackUp.txt"); //Need to write an exception for if file is not found
             string line = "";
@@ -112,6 +97,7 @@ namespace FRCScouting
                 count++; 
             }
 
+            /* FOR TESTING
             Console.WriteLine("Retrieved Test Data");
 
             for (int i = 0; i < 6; i++)
@@ -125,6 +111,7 @@ namespace FRCScouting
 
                 Console.Write('\n');
             }
+            */
         }
     }
 }
