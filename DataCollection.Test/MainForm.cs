@@ -12,7 +12,6 @@ using System.IO.Ports;
 
 using Scouting.DataCollector;
 
-
 namespace _2019_Scouting
 {
 	public partial class MainForm : Form
@@ -66,7 +65,7 @@ namespace _2019_Scouting
 						break;
 				}
 			}
-			_dataCollector.SetMode(0);
+			_dataCollector.SetMode(MatchMode.Reset);
 
 			cbMatchMode.SelectedIndex = 0;
 

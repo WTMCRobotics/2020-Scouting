@@ -19,33 +19,36 @@ namespace FRCScouting
         public void TestData() //Loads one match worth of test data into RobotDataList
         {
             Random random = new Random();
-            for(int i = 0; i < 3; i++)
+            for (int k = 1; k < 5; k++)
             {
-                int teamNumber = _matchList[1].BlueArr[i];
-                MatchData tempMatch = new MatchData(teamNumber,1,"Blue");
-
-                for (int j = 0; j < 8; j++)
+                for (int i = 0; i < 3; i++)
                 {
-                    tempMatch.ScoreArray[j] = random.Next(10);
-                }
-                RobotDataList.Add(tempMatch);
-            }
+                    int teamNumber = _matchList[k].BlueArr[i];
+                    MatchData tempMatch = new MatchData(teamNumber, k, "Blue");
 
-            for (int i = 0; i < 3; i++)
-            {
-                int teamNumber = _matchList[1].RedArr[i];
-                MatchData tempMatch = new MatchData(teamNumber,1,"Red");
-                
-                for (int j = 0; j < 8; j++)
-                {
-                    tempMatch.ScoreArray[j] = random.Next(10);
+                    for (int j = 0; j < 8; j++)
+                    {
+                        tempMatch.ScoreArray[j] = random.Next(10);
+                    }
+                    RobotDataList.Add(tempMatch);
                 }
-                RobotDataList.Add(tempMatch);
+
+                for (int i = 0; i < 3; i++)
+                {
+                    int teamNumber = _matchList[k].RedArr[i];
+                    MatchData tempMatch = new MatchData(teamNumber, k, "Red");
+
+                    for (int j = 0; j < 8; j++)
+                    {
+                        tempMatch.ScoreArray[j] = random.Next(10);
+                    }
+                    RobotDataList.Add(tempMatch);
+                }
             }
         }
 
-
-        public void LoadData()// Backs up data to text file TODO: Generalize beyond test data
+        //TODO: Generalize beyond test data
+        public void LoadData() // Backs up data to text file 
         {
             string path = @"C:\Users\Katie\Documents\Robotics\2019-Scouting\FRCScouting"; //UPDATE PATH FOR YOUR OWN COMPUTER
 
@@ -55,7 +58,7 @@ namespace FRCScouting
                 {
                     sw.WriteLine("Match Number,Team Number,Alliance,");
 
-                    for (int i = 0; i < 6; i++)
+                    for (int i = 0; i < 24; i++)
                     {
                         var temp = RobotDataList.ElementAt(i);
 
@@ -73,8 +76,8 @@ namespace FRCScouting
             }
         }
         
-
-        public void RetrieveData() // Retrieves data from text  
+        //TODO: Check that RetrieveData works because Madeline says it doesn't
+        public void RetrieveData() // Retrieves data from RobotDataBackUp.txt
         {
             var file = new System.IO.StreamReader("RobotDataBackUp.txt"); //Need to write an exception for if file is not found
             string line = "";

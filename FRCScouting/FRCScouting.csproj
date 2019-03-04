@@ -87,5 +87,11 @@
   <ItemGroup>
     <Content Include="RobotDataBackUp.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataCollector\DataCollector.csproj">
+      <Project>{1378191d-2f9e-4454-ab8f-262b5d09964f}</Project>
+      <Name>DataCollector</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

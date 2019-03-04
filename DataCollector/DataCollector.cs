@@ -24,7 +24,7 @@ namespace Scouting.DataCollector
 
 			foreach (string portName in System.IO.Ports.SerialPort.GetPortNames())
 			{
-				if (Convert.ToInt16(portName.Substring(3)) <= 3)
+				if (Convert.ToInt16(portName.Substring(3)) <= 5)
 					continue;
 
 				var controller = new DataEntryController(portName);

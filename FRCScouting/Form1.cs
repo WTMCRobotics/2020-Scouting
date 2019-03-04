@@ -7,12 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using Scouting.DataCollector;
+
 namespace FRCScouting
 {
     public partial class Form1 : Form
     {
         private Schedule _schedule;
         private RobotData _robotData;
+        private DataCollector _dataCollector;
+        Timer _PollingTimer;
 
         public Form1()
         {
@@ -21,39 +25,113 @@ namespace FRCScouting
             _schedule.LoadTestData();
 
             _robotData = new RobotData(_schedule.MatchList);
-        
+            //_robotData = new RobotData();
             _robotData.TestData(); //Loads test data for 1 match worth of data
             _robotData.LoadData(); //Loads data from match into text file
-            _robotData.RetrieveData(); //Loads data from text file into RobotData.cs's _matchList
-           
+                                   //_robotData.RetrieveData(); //Loads data from text file into RobotData.cs's _matchList
+
+            _dataCollector = new DataCollector();
+            _PollingTimer = new Timer();
+            _PollingTimer.Enabled = true;
+            _PollingTimer.Interval = Convert.ToInt16(1000);
+            _PollingTimer.Tick += new EventHandler(PollingEvent);
+
         }
+
+        private void PollingEvent(Object myObject, EventArgs myEventArgs)
+        {
+            _PollingTimer.Enabled = false;
+            for (var i = 0; i < 8; i++)
+            {
+                var controller = _dataCollector.Controllers[i];
+                if (controller == null)
+                    continue;
+
+                controller.Poll();
+
+
+
+                for (int j = 0; j < _robotData.RobotDataList[0].ScoreArray.Length; j++)
+                {
+                    string count1 = controller.AutonCounts[j].ToString();
+                    string count2 = controller.AutonCounts[j].ToString();
+                    string count3 = controller.AutonCounts[j].ToString();
+
+
+                    dgvBlue.Rows.Add(new string[3]
+                    {
+                        count1,count2,count3
+                        //TODO: Make the data actually update when you change the match number. BUT it appears that the load function does not work.
+                        //_dataCollec ToString(),_robotData.RobotDataList[1].ScoreArray[i].ToString(),_robotData.RobotDataList[2].ScoreArray[i].ToString(),
+
+
+                    });
+
+                    dgvBlue.Rows[i].HeaderCell.Value = ScoreArrayLabels[i];
+                }
+
+
+            }
+            _PollingTimer.Enabled = true;
+        }
+
+        //TODO: Define the labels that correspond ot the Score Array Variables
+        static public List<string> ScoreArrayLabels = new List<string>()
+        {
+            "HAB Level","Cargo","Hatch","Rocket Level","Cargo","Hatch", "Cargo Dropped","Hatches Dropped","HAB Level"
+        };
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // Create an unbound DataGridView by declaring a column count.
-            dgvBlue.ColumnCount = 3;                //Blue Alliance Columns (1 for each team)
-            dgvBlue.ColumnHeadersVisible = true;
-            dgvBlue.RowCount = 9;                   //Blue Alliance Rows (1 for each thing we are tracking)
-            dgvBlue.ColumnHeadersVisible = true;
+            /*
+            #region Blue Table
+            dgvBlue.ColumnCount = 3;
+            for (int i = 0; i < 3; i++)
+            {
+                dgvBlue.Columns[i].Name = _schedule.MatchList[0].BlueArr[i].ToString();
 
-            dgvRed.ColumnCount = 3;                 //Red Alliance Columns (1 for each team)
-            dgvRed.ColumnHeadersVisible = true;
-            dgvRed.RowCount = 9;                    //Red Alliance Rows (1 for each thing we are tracking) DYNAMIC
-            dgvRed.ColumnHeadersVisible = true;
+            }
 
-            // Set the column header style. CAN REDO THIS LATER
-            DataGridViewCellStyle columnHeaderStyle = new DataGridViewCellStyle();
+            for (int i = 0; i < _robotData.RobotDataList[0].ScoreArray.Length; i++)
+            {
+                dgvBlue.Rows.Add(new string[3]
+                {
+                    _robotData.RobotDataList[0].ScoreArray[i].ToString(),_robotData.RobotDataList[1].ScoreArray[i].ToString(),_robotData.RobotDataList[2].ScoreArray[i].ToString(),
 
-            columnHeaderStyle.BackColor = Color.Beige;
-            columnHeaderStyle.Font = new Font("Verdana", 8, FontStyle.Regular);
+                });
+                dgvBlue.Rows[i].HeaderCell.Value = ScoreArrayLabels[i];
+            }
 
-            dgvBlue.ColumnHeadersDefaultCellStyle = columnHeaderStyle;
-            dgvBlue.RowHeadersDefaultCellStyle = columnHeaderStyle;
+            dgvBlue.ReadOnly = true;
+            dgvBlue.RowHeadersVisible = true;
 
-            dgvRed.ColumnHeadersDefaultCellStyle = columnHeaderStyle;
-            dgvBlue.RowHeadersDefaultCellStyle = columnHeaderStyle;
-           
-            setTeam(1);
+            #endregion
+            */
+
+            //#region Red Table
+            //dgvRed.ColumnCount = 3;
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    dgvRed.Columns[i].Name = _schedule.MatchList[0].RedArr[i].ToString();
+
+            //}
+
+            //for (int i = 0; i < _robotData.RobotDataList[0].ScoreArray.Length; i++)
+            //{
+            //    dgvRed.Rows.Add(new string[3]
+            //    {
+            //        _robotData.RobotDataList[3].ScoreArray[i].ToString(),_robotData.RobotDataList[4].ScoreArray[i].ToString(),_robotData.RobotDataList[5].ScoreArray[i].ToString(),
+
+            //    });
+            //    dgvRed.Rows[i].HeaderCell.Value = ScoreArrayLabels[i];
+            //}
+
+            //dgvRed.ReadOnly = true;
+            //dgvRed.RowHeadersVisible = true;
+
+            //#endregion
+
+            setTeam(0);
         }
 
         private void UpDownMatch_ValueChanged(object sender, EventArgs e)
@@ -65,17 +143,60 @@ namespace FRCScouting
 
         private void setTeam(int matchNumber)
         {
-            dgvBlue.Columns[0].Name = _schedule.MatchList[matchNumber].BlueArr[0].ToString();
-            dgvBlue.Columns[1].Name = _schedule.MatchList[matchNumber].BlueArr[1].ToString();
-            dgvBlue.Columns[2].Name = _schedule.MatchList[matchNumber].BlueArr[2].ToString();
+            #region Blue Table
+            dgvBlue.ColumnCount = 3;
+            dgvBlue.Rows.Clear();
+            for (int i = 0; i < 3; i++)
+            {
+                dgvBlue.Columns[i].Name = _schedule.MatchList[matchNumber].BlueArr[i].ToString();
+                var data = _robotData.RobotDataList.Where(x => x.MatchNumber == matchNumber && x.Alliance == "Blue" && x.TeamNumber.ToString() == dgvBlue.Columns[i].Name).Select(b => b.ScoreArray[0]).ToString();
+            }
 
-            dgvRed.Columns[0].Name = _schedule.MatchList[matchNumber].RedArr[0].ToString();
-            dgvRed.Columns[1].Name = _schedule.MatchList[matchNumber].RedArr[1].ToString();
-            dgvRed.Columns[2].Name = _schedule.MatchList[matchNumber].RedArr[2].ToString();
-        }
+            /*
+            for (int i = 0; i < _robotData.RobotDataList[0].ScoreArray.Length; i++)
+            {
+                dgvBlue.Rows.Add(new string[3]
+                {
+                    //TODO: Make the data actually update when you change the match number. BUT it appears that the load function does not work.
+                    _robotData.RobotDataList[0].ScoreArray[i].ToString(),_robotData.RobotDataList[1].ScoreArray[i].ToString(),_robotData.RobotDataList[2].ScoreArray[i].ToString(),
+                    
 
-        private void setRowNames() //Sets the names of the columns
-        {
+                });
+          
+                dgvBlue.Rows[i].HeaderCell.Value = ScoreArrayLabels[i];
+            }
+            */
+
+            dgvBlue.ReadOnly = true;
+            dgvBlue.RowHeadersVisible = true;
+            dgvBlue.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+
+            #endregion
+
+            #region Red Table
+            dgvRed.ColumnCount = 3;
+            dgvRed.Rows.Clear();
+            for (int i = 0; i < 3; i++)
+            {
+                dgvRed.Columns[i].Name = _schedule.MatchList[matchNumber].RedArr[i].ToString();
+            }
+
+            for (int i = 0; i < _robotData.RobotDataList[0].ScoreArray.Length; i++)
+            {
+                dgvRed.Rows.Add(new string[3]
+                {
+                    _robotData.RobotDataList[3].ScoreArray[i].ToString(),_robotData.RobotDataList[4].ScoreArray[i].ToString(),_robotData.RobotDataList[5].ScoreArray[i].ToString(),
+
+                });
+                dgvRed.Rows[i].HeaderCell.Value = ScoreArrayLabels[i];
+            }
+
+            dgvRed.ReadOnly = true;
+            dgvRed.RowHeadersVisible = true;
+            dgvRed.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+
+            #endregion
+
         }
 
         private void tbMatchNumber_TextChanged(object sender, EventArgs e)

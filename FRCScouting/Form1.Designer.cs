@@ -88,7 +88,7 @@
             // btn1NextMatch
             // 
             this.btn1NextMatch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn1NextMatch.Location = new System.Drawing.Point(970, 861);
+            this.btn1NextMatch.Location = new System.Drawing.Point(1895, 67);
             this.btn1NextMatch.Name = "btn1NextMatch";
             this.btn1NextMatch.Size = new System.Drawing.Size(241, 70);
             this.btn1NextMatch.TabIndex = 9;
@@ -110,17 +110,17 @@
             this.dgvBlue.Location = new System.Drawing.Point(12, 251);
             this.dgvBlue.Name = "dgvBlue";
             this.dgvBlue.RowTemplate.Height = 40;
-            this.dgvBlue.Size = new System.Drawing.Size(962, 907);
+            this.dgvBlue.Size = new System.Drawing.Size(1092, 907);
             this.dgvBlue.TabIndex = 11;
             // 
             // dgvRed
             // 
             this.dgvRed.AllowUserToOrderColumns = true;
             this.dgvRed.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRed.Location = new System.Drawing.Point(1217, 251);
+            this.dgvRed.Location = new System.Drawing.Point(1133, 251);
             this.dgvRed.Name = "dgvRed";
             this.dgvRed.RowTemplate.Height = 40;
-            this.dgvRed.Size = new System.Drawing.Size(933, 907);
+            this.dgvRed.Size = new System.Drawing.Size(1041, 907);
             this.dgvRed.TabIndex = 12;
             // 
             // Form1
@@ -137,7 +137,8 @@
             this.Controls.Add(this.lblRed);
             this.Controls.Add(this.lblBlue);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Match View";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.UpDownMatch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBlue)).EndInit();
