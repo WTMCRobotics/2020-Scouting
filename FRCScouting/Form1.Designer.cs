@@ -35,6 +35,8 @@
             this.tbMatchNumber = new System.Windows.Forms.TextBox();
             this.dgvBlue = new System.Windows.Forms.DataGridView();
             this.dgvRed = new System.Windows.Forms.DataGridView();
+            this.btn2NextMode = new System.Windows.Forms.Button();
+            this.cbMatchMode = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.UpDownMatch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBlue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRed)).BeginInit();
@@ -64,7 +66,7 @@
             // 
             // UpDownMatch
             // 
-            this.UpDownMatch.Location = new System.Drawing.Point(854, 101);
+            this.UpDownMatch.Location = new System.Drawing.Point(1446, 48);
             this.UpDownMatch.Maximum = new decimal(new int[] {
             80,
             0,
@@ -94,13 +96,12 @@
             this.btn1NextMatch.TabIndex = 9;
             this.btn1NextMatch.Text = "NEXT MATCH";
             this.btn1NextMatch.UseVisualStyleBackColor = true;
-            this.btn1NextMatch.Click += new System.EventHandler(this.btn1NextMatch_Click);
             // 
             // tbMatchNumber
             // 
-            this.tbMatchNumber.Location = new System.Drawing.Point(1025, 84);
+            this.tbMatchNumber.Location = new System.Drawing.Point(207, 48);
             this.tbMatchNumber.Name = "tbMatchNumber";
-            this.tbMatchNumber.Size = new System.Drawing.Size(298, 38);
+            this.tbMatchNumber.Size = new System.Drawing.Size(313, 38);
             this.tbMatchNumber.TabIndex = 10;
             // 
             // dgvBlue
@@ -123,12 +124,39 @@
             this.dgvRed.Size = new System.Drawing.Size(1041, 907);
             this.dgvRed.TabIndex = 12;
             // 
+            // btn2NextMode
+            // 
+            this.btn2NextMode.Location = new System.Drawing.Point(1116, 41);
+            this.btn2NextMode.Name = "btn2NextMode";
+            this.btn2NextMode.Size = new System.Drawing.Size(234, 50);
+            this.btn2NextMode.TabIndex = 13;
+            this.btn2NextMode.Text = "Next Mode";
+            this.btn2NextMode.UseVisualStyleBackColor = true;
+            this.btn2NextMode.Click += new System.EventHandler(this.btn2NextMode_Click);
+            // 
+            // cbMatchMode
+            // 
+            this.cbMatchMode.FormattingEnabled = true;
+            this.cbMatchMode.Items.AddRange(new object[] {
+            "Reset",
+            "Waiting",
+            "Auton",
+            "Teleop",
+            "Done"});
+            this.cbMatchMode.Location = new System.Drawing.Point(758, 41);
+            this.cbMatchMode.Name = "cbMatchMode";
+            this.cbMatchMode.Size = new System.Drawing.Size(363, 39);
+            this.cbMatchMode.TabIndex = 14;
+            this.cbMatchMode.SelectedIndexChanged += new System.EventHandler(this.cbMatchMode_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.MenuBar;
             this.ClientSize = new System.Drawing.Size(2186, 1196);
+            this.Controls.Add(this.cbMatchMode);
+            this.Controls.Add(this.btn2NextMode);
             this.Controls.Add(this.dgvRed);
             this.Controls.Add(this.dgvBlue);
             this.Controls.Add(this.tbMatchNumber);
@@ -157,6 +185,7 @@
         private System.Windows.Forms.TextBox tbMatchNumber;
         private System.Windows.Forms.DataGridView dgvBlue;
         private System.Windows.Forms.DataGridView dgvRed;
+        private System.Windows.Forms.Button btn2NextMode;
     }
 }
 
