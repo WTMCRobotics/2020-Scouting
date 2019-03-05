@@ -38,51 +38,60 @@ namespace FRCScouting
 
         }
 
-        private void PollingEvent(Object myObject, EventArgs myEventArgs)
-        {
-            _PollingTimer.Enabled = false;
-            for (var i = 0; i < 8; i++)
-            {
-                var controller = _dataCollector.Controllers[i];
-                if (controller == null)
-                    continue;
-
-                controller.Poll();
-
-
-
-                for (int j = 0; j < _robotData.RobotDataList[0].ScoreArray.Length; j++)
-                {
-                    string count1 = controller.AutonCounts[j].ToString();
-                    string count2 = controller.AutonCounts[j].ToString();
-                    string count3 = controller.AutonCounts[j].ToString();
-
-
-                    dgvBlue.Rows.Add(new string[3]
-                    {
-                        count1,count2,count3
-                        //TODO: Make the data actually update when you change the match number. BUT it appears that the load function does not work.
-                        //_dataCollec ToString(),_robotData.RobotDataList[1].ScoreArray[i].ToString(),_robotData.RobotDataList[2].ScoreArray[i].ToString(),
-
-
-                    });
-
-                    dgvBlue.Rows[i].HeaderCell.Value = ScoreArrayLabels[i];
-                }
-
-
-            }
-            _PollingTimer.Enabled = true;
-        }
-
         //TODO: Define the labels that correspond ot the Score Array Variables
         static public List<string> ScoreArrayLabels = new List<string>()
         {
             "HAB Level","Cargo","Hatch","Rocket Level","Cargo","Hatch", "Cargo Dropped","Hatches Dropped","HAB Level"
         };
 
+        private void PollingEvent(Object myObject, EventArgs myEventArgs)
+        {
+            _PollingTimer.Enabled = false;
+
+            for (var i = 0; i < 3; i++)
+            {
+                //var activeControllers = _dataCollector.Controllers.Where(item => item != null);
+                
+                var controller = _dataCollector.Controllers[i];
+                if (controller == null)
+                    continue;
+
+                controller.Poll();
+                
+                    #region Blue Table
+                    for (int j = 0; j < _robotData.RobotDataList[0].ScoreArray.Length; j++)
+                    {
+                        dgvBlue[i,j].Value = controller.AutonCounts[j].ToString();
+                    
+                        dgvBlue.Rows[i].HeaderCell.Value = ScoreArrayLabels[i];
+                    }
+
+                #endregion
+              
+            }
+            _PollingTimer.Enabled = true;
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
+            #region Blue Table
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < _robotData.RobotDataList[0].ScoreArray.Length; j++)
+                {
+                    string temp = "0";
+
+                    dgvBlue.Rows.Add(new string[3] //ISSUE HERE
+                    {
+                            temp,temp,temp
+                    });
+
+                    dgvBlue.Rows[j].HeaderCell.Value = ScoreArrayLabels[j];
+                }
+
+            }
+            #endregion
+             
             /*
             #region Blue Table
             dgvBlue.ColumnCount = 3;
