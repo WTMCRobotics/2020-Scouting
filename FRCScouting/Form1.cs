@@ -51,7 +51,7 @@ namespace FRCScouting
         //TODO: Define the labels that correspond ot the Score Array Variables
         static public List<string> ScoreArrayLabels = new List<string>()
         {
-            "HAB Level","Cargo","Hatch","Cargo","Hatch","Cargo Dropped","Hatches Dropped","HAB Level"
+            "Auton HAB Level","Auton Cargo","Auton Hatch","Teleop Cargo","Teleop Hatch","Cargo Dropped","Hatches Dropped","Teleop HAB Level"
         };
 
         private void PollingEvent(Object myObject, EventArgs myEventArgs)
@@ -71,10 +71,10 @@ namespace FRCScouting
                     #region Blue Table
                     for (int j = 0; j < _robotData.RobotDataList[0].ScoreArray.Length; j++)
                     {
-                        if (cbMatchMode.Items[2] == "Auton")
+                       // if (cbMatchMode.Text == "Auton")
                         dgvBlue[i-1,j].Value = controller.AutonCounts[j].ToString();
 
-                        dgvBlue[i-1,j].Value = controller.TeleopCounts[j].ToString();
+                        //dgvBlue[i-1,j].Value = controller.TeleopCounts[j].ToString();
                     
                         dgvBlue.Rows[i].HeaderCell.Value = ScoreArrayLabels[i];
                     }

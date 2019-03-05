@@ -65,9 +65,10 @@ namespace Scouting.DataCollector
 
 		public byte[] AutonCounts { get; private set; }
 		public byte[] TeleopCounts { get; private set; }
+        public byte[] TotalCounts { get; private set; }
 
-		// static constructor to create controller command arrays
-		static DataEntryController()
+        // static constructor to create controller command arrays
+        static DataEntryController()
 		{
 			_command = new List<string>
 			{
@@ -86,8 +87,9 @@ namespace Scouting.DataCollector
 			_port.Open();
 			
 			AutonCounts = new byte[8];
-			TeleopCounts = new byte[8];
-			Mode = MatchMode.Reset;
+            TeleopCounts = new byte[8];
+            TotalCounts = new byte[8];
+            Mode = MatchMode.Reset;
 
 			TestPort();
 		}
@@ -143,6 +145,10 @@ namespace Scouting.DataCollector
 		{
 			PollButtons();
 			PollCounts();
+            for (var i= 0; i < 8; i++)
+            {
+                TotalCounts[i] = (byte)(AutonCounts[i] + TeleopCounts[i]);
+            }
 		}
 
 		public bool PollSwitches()
