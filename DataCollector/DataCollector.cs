@@ -38,7 +38,7 @@ namespace Scouting.DataCollector
 		public byte GetButtons(uint id) { return _controllers[id].Buttons; }
 		public byte[] GetAutonCount(uint id)  { return _controllers[id].AutonCounts; }
         public byte[] GetTeleopCount(uint id) { return _controllers[id].TeleopCounts; }
-        public byte[] GetTotelCount(uint id)  { return _controllers[id].TotalCounts; }
+        public byte[] GetTotalCount(uint id)  { return _controllers[id].TotalCounts; }
 
         public void PollControllers()
 		{

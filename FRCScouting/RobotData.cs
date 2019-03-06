@@ -9,14 +9,14 @@ namespace FRCScouting
     public class RobotData
     {
         public List<MatchData> RobotDataList = new List<MatchData>();
-        private List <Match> _matchList;
-         
+        private List<Match> _matchList;
+
         public RobotData(List<Match> matchList)
         {
             _matchList = matchList;
         }
-        
-        public void TestData() //Loads one match worth of test data into RobotDataList
+
+        public void TestData() //Loads 4 matches worth of test data into RobotDataList
         {
             Random random = new Random();
             for (int k = 1; k < 5; k++)
@@ -47,8 +47,8 @@ namespace FRCScouting
             }
         }
 
-        //TODO: Generalize beyond test data
-        public void LoadData() // Backs up data to text file 
+        
+        public void LoadData() // Backs up TEST data to text file 
         {
             string path = @"C:\Users\Katie\Documents\Robotics\2019-Scouting\FRCScouting"; //UPDATE PATH FOR YOUR OWN COMPUTER
 
@@ -75,7 +75,8 @@ namespace FRCScouting
                 }
             }
         }
-        
+
+
         //TODO: Check that RetrieveData works because Madeline says it doesn't
         public void RetrieveData() // Retrieves data from RobotDataBackUp.txt
         {
@@ -97,7 +98,7 @@ namespace FRCScouting
                 for (int i = 0; i < 8; i++)
                     temp.ScoreArray[i] = int.Parse(words[i + 3]);
 
-                count++; 
+                count++;
             }
 
             /* FOR TESTING

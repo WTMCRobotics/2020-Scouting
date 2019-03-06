@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 using Scouting.DataCollector;
 
@@ -26,9 +27,8 @@ namespace FRCScouting
             _schedule.LoadTestData();
 
             _robotData = new RobotData(_schedule.MatchList);
-            //_robotData = new RobotData();
             _robotData.TestData(); //Loads test data for 1 match worth of data
-            _robotData.LoadData(); //Loads data from match into text file
+            //_robotData.LoadData(); //Loads data from match into text file
                                    //_robotData.RetrieveData(); //Loads data from text file into RobotData.cs's _matchList
 
             _dataCollector = new DataCollector();
@@ -41,14 +41,9 @@ namespace FRCScouting
             _PollingTimer.Enabled = true;
             _PollingTimer.Interval = Convert.ToInt16(1000);
             _PollingTimer.Tick += new EventHandler(PollingEvent);
-
             
-
-
-
         }
 
-        //TODO: Define the labels that correspond ot the Score Array Variables
         static public List<string> ScoreArrayLabels = new List<string>()
         {
             "Auton HAB Level","Auton Cargo","Auton Hatch","Teleop Cargo","Teleop Hatch","Cargo Dropped","Hatches Dropped","Teleop HAB Level"
@@ -67,19 +62,16 @@ namespace FRCScouting
                     continue;
 
                 controller.Poll();
+
+                #region Red Table
+                for (int j = 0; j < _robotData.RobotDataList[0].ScoreArray.Length; j++)
+                {
+                    dgvRed[i -1, j].Value = controller.TotalCounts[j].ToString();
+
+                    dgvRed.Rows[i].HeaderCell.Value = ScoreArrayLabels[i];
+                }
+                #endregion
                 
-                    #region Blue Table
-                    for (int j = 0; j < _robotData.RobotDataList[0].ScoreArray.Length; j++)
-                    {
-                       // if (cbMatchMode.Text == "Auton")
-                        dgvBlue[i-1,j].Value = controller.AutonCounts[j].ToString();
-
-                        //dgvBlue[i-1,j].Value = controller.TeleopCounts[j].ToString();
-                    
-                        dgvBlue.Rows[i].HeaderCell.Value = ScoreArrayLabels[i];
-                    }
-
-                    #endregion
             }
 
             for(int i = 0; i < 4; i++)
@@ -90,15 +82,12 @@ namespace FRCScouting
 
                 controller.Poll();
 
-                #region Red Table
+                #region Blue Table
                 for (int j = 0; j < _robotData.RobotDataList[0].ScoreArray.Length; j++)
                 {
-                    if(cbMatchMode.Text == "Auton")
-                    dgvRed[i, j].Value = controller.AutonCounts[j].ToString();
+                    dgvBlue[i, j].Value = controller.TotalCounts[j].ToString();
 
-                    dgvRed[i, j].Value = controller.TeleopCounts[j].ToString();
-
-                    dgvRed.Rows[i].HeaderCell.Value = ScoreArrayLabels[i];
+                    dgvBlue.Rows[i].HeaderCell.Value = ScoreArrayLabels[i];
                 }
                 #endregion
             }
@@ -118,6 +107,11 @@ namespace FRCScouting
             setTeam(matchNumber);
         }
 
+        private int getMatchNumber()
+        {
+            return (Convert.ToInt32(UpDownMatch.Value));
+        }
+
         private void setTeam(int matchNumber)
         {
             #region Blue Table
@@ -130,41 +124,26 @@ namespace FRCScouting
             }
 
             #region Blue Table
-            
-                for (int j = 0; j < _robotData.RobotDataList[0].ScoreArray.Length; j++)
-                {
-                    string temp = "hello";
 
-                    dgvBlue.Rows.Add(new string[3] //ISSUE HERE
-                    {
-                            temp,temp,temp
-                    });
-
-                    dgvBlue.Rows[j].HeaderCell.Value = ScoreArrayLabels[j];
-                }
-            #endregion
-
-            /*
-            for (int i = 0; i < _robotData.RobotDataList[0].ScoreArray.Length; i++)
+            for (int j = 0; j < _robotData.RobotDataList[0].ScoreArray.Length; j++)
             {
+                string temp = "hello";
+
                 dgvBlue.Rows.Add(new string[3]
                 {
-                    //TODO: Make the data actually update when you change the match number. BUT it appears that the load function does not work.
-                    _robotData.RobotDataList[0].ScoreArray[i].ToString(),_robotData.RobotDataList[1].ScoreArray[i].ToString(),_robotData.RobotDataList[2].ScoreArray[i].ToString(),
-                    
-
+                    temp,temp,temp
                 });
-          
-                dgvBlue.Rows[i].HeaderCell.Value = ScoreArrayLabels[i];
+
+                dgvBlue.Rows[j].HeaderCell.Value = ScoreArrayLabels[j];
             }
-            */
+            #endregion
 
             dgvBlue.ReadOnly = true;
             dgvBlue.RowHeadersVisible = true;
             dgvBlue.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
 
             #endregion
-
+   
             #region Red Table
             dgvRed.ColumnCount = 3;
             dgvRed.Rows.Clear();
@@ -203,7 +182,65 @@ namespace FRCScouting
         {
             cbMatchMode.SelectedIndex += 1;
         }
-     
+        
 
+        private void btnLoadData_Click(object sender, EventArgs e) 
+        {
+            string path = @"C:\Users\Katie\Documents\Robotics\2019-Scouting\FRCScouting"; //UPDATE PATH FOR YOUR OWN COMPUTER
+
+            if (!File.Exists(path))
+            {
+                using (StreamWriter sw = new StreamWriter(Path.Combine(path, "RobotDataBackUp.txt"), true))
+                {
+                    for (int i = 0; i < 3; i++) // LOAD RED
+                    {
+                        var temp = new MatchData(0,0,"Red");
+
+                        temp.MatchNumber = getMatchNumber();
+
+                        temp.TeamNumber = Convert.ToInt32(_schedule.MatchList[getMatchNumber()].RedArr[i].ToString());
+                 
+                        sw.Write($"{temp.MatchNumber},{temp.TeamNumber},{temp.Alliance},");
+
+                        #region Blue Table
+                        for (int j = 0; j < _robotData.RobotDataList[0].ScoreArray.Length; j++)
+                        {   
+                            temp.ScoreArray[i] = Convert.ToInt32(dgvBlue[i, j].Value);
+                            
+                            sw.Write($"{temp.ScoreArray[i]},");
+                        }
+                        #endregion
+
+                        _robotData.RobotDataList.Add(temp);
+                            sw.Write('\n');
+                    }
+
+                    for (int i = 0; i < 3; i++) // LOAD BLUE
+                    {
+                        var temp = new MatchData(0, 0, "Blue");
+
+                        temp.MatchNumber = getMatchNumber();
+
+                        temp.TeamNumber = Convert.ToInt32(_schedule.MatchList[getMatchNumber()].BlueArr[i].ToString());
+
+                        sw.Write($"{temp.MatchNumber},{temp.TeamNumber},{temp.Alliance},");
+
+                        #region Blue Table
+                        for (int j = 0; j < _robotData.RobotDataList[0].ScoreArray.Length; j++)
+                        {
+                            temp.ScoreArray[i] = Convert.ToInt32(dgvBlue[i, j].Value);
+
+                            sw.Write($"{temp.ScoreArray[i]},");
+                        }
+                        #endregion
+
+                        _robotData.RobotDataList.Add(temp);
+                        sw.Write('\n');
+                    }
+                }
+            }
+            //Change button color to signal that data has been loaded
+            btnLoadData.BackColor = Color.Green;
+        }
     }
 }

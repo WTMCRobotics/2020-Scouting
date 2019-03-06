@@ -37,6 +37,7 @@
             this.dgvRed = new System.Windows.Forms.DataGridView();
             this.btn2NextMode = new System.Windows.Forms.Button();
             this.cbMatchMode = new System.Windows.Forms.ComboBox();
+            this.btnLoadData = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.UpDownMatch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBlue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRed)).BeginInit();
@@ -90,7 +91,7 @@
             // btn1NextMatch
             // 
             this.btn1NextMatch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn1NextMatch.Location = new System.Drawing.Point(1895, 67);
+            this.btn1NextMatch.Location = new System.Drawing.Point(1898, 48);
             this.btn1NextMatch.Name = "btn1NextMatch";
             this.btn1NextMatch.Size = new System.Drawing.Size(241, 70);
             this.btn1NextMatch.TabIndex = 9;
@@ -99,7 +100,7 @@
             // 
             // tbMatchNumber
             // 
-            this.tbMatchNumber.Location = new System.Drawing.Point(207, 48);
+            this.tbMatchNumber.Location = new System.Drawing.Point(959, 134);
             this.tbMatchNumber.Name = "tbMatchNumber";
             this.tbMatchNumber.Size = new System.Drawing.Size(313, 38);
             this.tbMatchNumber.TabIndex = 10;
@@ -108,17 +109,18 @@
             // 
             this.dgvBlue.AllowUserToOrderColumns = true;
             this.dgvBlue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvBlue.Location = new System.Drawing.Point(12, 251);
+            this.dgvBlue.Location = new System.Drawing.Point(34, 253);
             this.dgvBlue.Name = "dgvBlue";
             this.dgvBlue.RowTemplate.Height = 40;
-            this.dgvBlue.Size = new System.Drawing.Size(1092, 907);
+            this.dgvBlue.Size = new System.Drawing.Size(1036, 897);
             this.dgvBlue.TabIndex = 11;
             // 
             // dgvRed
             // 
             this.dgvRed.AllowUserToOrderColumns = true;
+            this.dgvRed.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvRed.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRed.Location = new System.Drawing.Point(1133, 251);
+            this.dgvRed.Location = new System.Drawing.Point(1116, 253);
             this.dgvRed.Name = "dgvRed";
             this.dgvRed.RowTemplate.Height = 40;
             this.dgvRed.Size = new System.Drawing.Size(1041, 907);
@@ -126,7 +128,7 @@
             // 
             // btn2NextMode
             // 
-            this.btn2NextMode.Location = new System.Drawing.Point(1116, 41);
+            this.btn2NextMode.Location = new System.Drawing.Point(797, 18);
             this.btn2NextMode.Name = "btn2NextMode";
             this.btn2NextMode.Size = new System.Drawing.Size(234, 50);
             this.btn2NextMode.TabIndex = 13;
@@ -140,14 +142,23 @@
             this.cbMatchMode.Items.AddRange(new object[] {
             "Reset",
             "Waiting",
-            "Auton",
-            "Teleop",
+            "Match",
             "Done"});
-            this.cbMatchMode.Location = new System.Drawing.Point(758, 41);
+            this.cbMatchMode.Location = new System.Drawing.Point(439, 25);
             this.cbMatchMode.Name = "cbMatchMode";
             this.cbMatchMode.Size = new System.Drawing.Size(363, 39);
             this.cbMatchMode.TabIndex = 14;
             this.cbMatchMode.SelectedIndexChanged += new System.EventHandler(this.cbMatchMode_SelectedIndexChanged);
+            // 
+            // btnLoadData
+            // 
+            this.btnLoadData.Location = new System.Drawing.Point(1092, 30);
+            this.btnLoadData.Name = "btnLoadData";
+            this.btnLoadData.Size = new System.Drawing.Size(254, 70);
+            this.btnLoadData.TabIndex = 15;
+            this.btnLoadData.Text = "LOAD";
+            this.btnLoadData.UseVisualStyleBackColor = true;
+            this.btnLoadData.Click += new System.EventHandler(this.btnLoadData_Click);
             // 
             // Form1
             // 
@@ -155,6 +166,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.MenuBar;
             this.ClientSize = new System.Drawing.Size(2186, 1196);
+            this.Controls.Add(this.btnLoadData);
             this.Controls.Add(this.cbMatchMode);
             this.Controls.Add(this.btn2NextMode);
             this.Controls.Add(this.dgvRed);
@@ -186,6 +198,7 @@
         private System.Windows.Forms.DataGridView dgvBlue;
         private System.Windows.Forms.DataGridView dgvRed;
         private System.Windows.Forms.Button btn2NextMode;
+        private System.Windows.Forms.Button btnLoadData;
     }
 }
 
