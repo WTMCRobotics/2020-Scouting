@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E84ACAE0-03AA-4A1F-AB39-BAF0E73A4B86}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>_2019_Scouting</RootNamespace>
-    <AssemblyName>2019-Scouting</AssemblyName>
+    <RootNamespace>Scouting.Test</RootNamespace>
+    <AssemblyName>Scouting.Test</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -73,6 +73,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

@@ -35,7 +35,7 @@ enum
 	ledFlash
 };
 
-// Match Modex
+// Match Mode
 enum 
 {
 	matchReset	= 0,
@@ -71,6 +71,7 @@ void setup()
 	pinMode(10, INPUT_PULLUP);
 	pinMode(11, INPUT_PULLUP);
 	pinMode(12, INPUT_PULLUP);
+
 	pinMode(13, OUTPUT);
 	pinMode(19, OUTPUT);
 	digitalWrite(19, HIGH);
@@ -229,6 +230,9 @@ void PollButtons()
 				_autonCount[i]++;
 			else if (_matchMode == matchTeleop)
 				_teleopCount[i]++;
+			digitalWrite(13, HIGH);
+			delay(10);
+			digitalWrite(13, LOW);
 		}
 		presses = presses >> 1;
 	}

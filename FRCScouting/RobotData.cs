@@ -3,105 +3,106 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Windows.Forms;
+
 
 namespace FRCScouting
 {
     public class RobotData
     {
-        public List<MatchData> RobotDataList = new List<MatchData>();
-        private List<Match> _matchList;
+        public List<MatchData> MatchDataList = new List<MatchData>();
 
-        public RobotData(List<Match> matchList)
+		public RobotData()
+		{
+		}
+
+		public RobotData(List<Match> matchList)
         {
-            _matchList = matchList;
-        }
-
-        public void TestData() //Loads 4 matches worth of test data into RobotDataList
-        {
-            Random random = new Random();
-            for (int k = 1; k < 5; k++)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    int teamNumber = _matchList[k].BlueArr[i];
-                    MatchData tempMatch = new MatchData(teamNumber, k, "Blue");
-
-                    for (int j = 0; j < 8; j++)
-                    {
-                        tempMatch.ScoreArray[j] = random.Next(10);
-                    }
-                    RobotDataList.Add(tempMatch);
-                }
-
-                for (int i = 0; i < 3; i++)
-                {
-                    int teamNumber = _matchList[k].RedArr[i];
-                    MatchData tempMatch = new MatchData(teamNumber, k, "Red");
-
-                    for (int j = 0; j < 8; j++)
-                    {
-                        tempMatch.ScoreArray[j] = random.Next(10);
-                    }
-                    RobotDataList.Add(tempMatch);
-                }
-            }
-        }
-
+		}
         
-        public void LoadData() // Backs up TEST data to text file 
+        public void CreateRandomTestData(List<Match> matchList)
         {
-            string path = @"C:\Users\Katie\Documents\Robotics\2019-Scouting\FRCScouting"; //UPDATE PATH FOR YOUR OWN COMPUTER
+			Random random = new Random();
+			foreach (var match in matchList)
+			{
+				foreach (var team in match.BlueTeams)
+					MatchDataList.Add(new MatchData(team, match.MatchNumber, "Blue"));
+				foreach (var team in match.RedTeams)
+					MatchDataList.Add(new MatchData(team, match.MatchNumber, "Red"));
+			}
 
-            if (!File.Exists(path))
-            {
-                using (StreamWriter sw = new StreamWriter(Path.Combine(path, "RobotDataBackUp.txt"), true))
-                {
-                    sw.WriteLine("Match Number,Team Number,Alliance,");
+			foreach (var matchData in MatchDataList)
+			{
+				for (int i=0; i<8; i++)
+				{
+					matchData.ScoreArray[i] = random.Next(10);
+				}
 
-                    for (int i = 0; i < 24; i++)
-                    {
-                        var temp = RobotDataList.ElementAt(i);
-
-                        //Console.Write($"{temp.MatchNumber},{temp.TeamNumber},{temp.Alliance},");
-                        sw.Write($"{temp.MatchNumber},{temp.TeamNumber},{temp.Alliance},");
-
-                        for (int j = 0; j < 8; j++)
-                        {
-                            //Console.Write($"{temp.ScoreArray.ElementAt(j)},");
-                            sw.Write($"{temp.ScoreArray.ElementAt(j)},");
-                        }
-                        sw.Write('\n');
-                    }
-                }
-            }
+			}
         }
 
-
-        //TODO: Check that RetrieveData works because Madeline says it doesn't
-        public void RetrieveData() // Retrieves data from RobotDataBackUp.txt
+        public void SaveData(string dataFile) // Backs up data to text file 
         {
-            var file = new System.IO.StreamReader("RobotDataBackUp.txt"); //Need to write an exception for if file is not found
-            string line = "";
-            int count = 1;
-
-            file.ReadLine(); //So it skips line with key 
-            while ((line = file.ReadLine()) != null) // Reads through the full file line by line
+            using (StreamWriter sw = new StreamWriter(dataFile))
             {
-                var words = line.Split(',');
-                int matchNum = int.Parse(words[0]);
-                var temp = RobotDataList.ElementAt(count);
+				sw.WriteLine("Match#,Team, Alliance, Count1, Count2, Count3, Count4, Count5, Count6, Count7, Count8");
+                foreach (var matchData in MatchDataList)
+                {
+                    sw.Write($"{matchData.MatchNumber},{matchData.TeamNumber},{matchData.Alliance}");
 
-                temp.MatchNumber = int.Parse(words[0]);
-                temp.TeamNumber = int.Parse(words[1]);
-                temp.Alliance = words[2];
-
-                for (int i = 0; i < 8; i++)
-                    temp.ScoreArray[i] = int.Parse(words[i + 3]);
-
-                count++;
+                    for (int i = 0; i < 8; i++)
+                    {
+                        //Console.Write($"{temp.ScoreArray.ElementAt(j)},");
+                        sw.Write($",{matchData.ScoreArray[i]}");
+                    }
+                    sw.Write('\n');
+                }
+				sw.Close();
             }
+        }
+        
+        //TODO: Check that RetrieveData works because Madeline says it doesn't
+        public bool LoadData(string dataFile) // Retrieves data from RobotDataBackUp.txt
+        {
+			if (!File.Exists(dataFile))
+			{
+				MessageBox.Show($"Robot data file {dataFile} not found.",
+								"FRC Scouting Program",
+								MessageBoxButtons.OK);
+				return false;
+			}
 
-            /* FOR TESTING
+			using (var file = new StreamReader(dataFile)) //Need to write an exception for if file is not found
+			{
+				string line = "";
+				int count = 1;
+
+				// skip header line
+				file.ReadLine();
+
+				// Reads through the full file line by line
+				while ((line = file.ReadLine()) != null) 
+				{
+					var words = line.Split(',');
+					var matchNumber	= int.Parse(words[0]);
+					var teamNumber	= int.Parse(words[1]);
+					var alliance	= words[2];
+					var newMatchData = new MatchData(matchNumber, teamNumber, alliance);
+
+					for (int i = 0; i < 8; i++)
+						newMatchData.ScoreArray[i] = int.Parse(words[i + 3]);
+
+					count++;
+
+					MatchDataList.Add(newMatchData);
+				}
+
+				file.Close();
+
+			}
+			return true;
+
+			/* FOR TESTING
             Console.WriteLine("Retrieved Test Data");
 
             for (int i = 0; i < 6; i++)
@@ -116,6 +117,6 @@ namespace FRCScouting
                 Console.Write('\n');
             }
             */
-        }
+		}
     }
 }

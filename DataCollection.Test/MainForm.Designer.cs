@@ -1,4 +1,4 @@
-﻿namespace _2019_Scouting
+﻿namespace Scouting.Test
 {
 	partial class MainForm
 	{

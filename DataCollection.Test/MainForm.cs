@@ -12,7 +12,7 @@ using System.IO.Ports;
 
 using Scouting.DataCollector;
 
-namespace _2019_Scouting
+namespace Scouting.Test
 {
 	public partial class MainForm : Form
 	{
@@ -25,7 +25,7 @@ namespace _2019_Scouting
 
 		Timer _PollingTimer;
 
-		DataCollector _dataCollector;
+		Scouting.DataCollector.CDataCollector _dataCollector;
 
 		public MainForm()
 		{
@@ -34,7 +34,7 @@ namespace _2019_Scouting
 			FillControllArrays();
 			cbMatchMode.Enabled = true;
 
-			_dataCollector = new DataCollector();
+			_dataCollector = new CDataCollector();
 
 			foreach (var controller in _dataCollector.Controllers)
 			{

@@ -10,21 +10,22 @@ using System.Globalization;
 
 namespace Scouting.DataCollector
 {
-    public class DataCollector
+    public class CDataCollector
     {
 		private const int kReadTimeout = 10;
 
 		private DataEntryController[] _controllers;
 
 		public DataEntryController[] Controllers { get { return _controllers; } }
+		public MatchMode Mode { get; private set; } 
 
-		public DataCollector()
+		public CDataCollector()
 		{
 			_controllers	= new DataEntryController[8];
 
 			foreach (string portName in System.IO.Ports.SerialPort.GetPortNames())
 			{
-				if (Convert.ToInt16(portName.Substring(3)) <= 5)
+				if (Convert.ToInt16(portName.Substring(3)) <= 3)
 					continue;
 
 				var controller = new DataEntryController(portName);
@@ -48,7 +49,7 @@ namespace Scouting.DataCollector
 					_controllers[i].PortStatus != DataEntryController.Status.OK)
 					continue;
 
-				_controllers[i].PollButtons();
+				_controllers[i].Poll();
 			}
 		}
 
@@ -59,6 +60,7 @@ namespace Scouting.DataCollector
 				if (controller == null || controller.PortStatus != DataEntryController.Status.OK)
 					continue;
 				controller.SetMatchMode(mode);
+				Mode = mode;
 			}
 
 		}

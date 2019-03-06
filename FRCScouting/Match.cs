@@ -7,16 +7,19 @@ namespace FRCScouting
 {
     public class Match
     {
-        public int[] BlueArr = new int[3];
-        public int[] RedArr = new int[3];
+		public int MatchNumber;
+        public int[] BlueTeams = new int[3];
+        public int[] RedTeams = new int[3];
         
-        public Match()
+        public Match(int matchNumber)
         {
-            for (int i = 0; i < 3; i++)
-                BlueArr[i] = 0;
+			MatchNumber = matchNumber;
 
             for (int i = 0; i < 3; i++)
-                RedArr[i] = 0;
+                BlueTeams[i] = 0;
+
+            for (int i = 0; i < 3; i++)
+                RedTeams[i] = 0;
         }
     }
 }

@@ -7,7 +7,7 @@
     <ProjectGuid>{1378191D-2F9E-4454-AB8F-262B5D09964F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataCollector</RootNamespace>
+    <RootNamespace>Scouting.DataCollector</RootNamespace>
     <AssemblyName>DataCollector</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

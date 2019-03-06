@@ -14,90 +14,143 @@ namespace FRCScouting
 {
     public partial class Form1 : Form
     {
-        private Schedule _schedule;
+		private const string WorkingDirectory = "";
+		private const string ScheduleFileName = "Schedule.txt";
+		private const string MatchDataFileName = "MatchData.csv";
+
+		private Schedule _schedule;
         private RobotData _robotData;
-        private DataCollector _dataCollector;
-        private System.Windows.Forms.ComboBox cbMatchMode;
+		private Analytics _analytics;
+        private CDataCollector _dataCollector;
+		private List<int> _teamList = new List<int>();
+		private Dictionary<int, int> _buttonToScoreMap;
         Timer _PollingTimer;
 
-        public Form1()
+		static public List<string> ScoreArrayLabels = new List<string>()
+		{
+			"Auton HAB Level","Auton Cargo","Auton Hatch","Teleop Cargo","Teleop Hatch","Cargo Dropped","Hatches Dropped","Teleop HAB Level"
+		};
+
+		public Form1()
         {
             InitializeComponent();
-            _schedule = new Schedule();
-            _schedule.LoadTestData();
 
-            _robotData = new RobotData(_schedule.MatchList);
-            _robotData.TestData(); //Loads test data for 1 match worth of data
-            //_robotData.LoadData(); //Loads data from match into text file
-                                   //_robotData.RetrieveData(); //Loads data from text file into RobotData.cs's _matchList
+			// Maps physical buttons to scoring counts
+			//	Auton buttons 0x00-0x07
+			//	Teleop buttons 0x10-0x17
+			_buttonToScoreMap = new Dictionary<int, int>
+			{
+				{ 0x00, 0 },    // Auton HAB Level
+				{ 0x02, 1 },    // Auton Cargo
+				{ 0x05, 2 },	// Auton Hatch
+				{ 0x03, 5 },	// Dropped Cargo
+				{ 0x06, 6 },	// Dropped Hatch
 
-            _dataCollector = new DataCollector();
-            cbMatchMode.Enabled = true;
+				{ 0x14, 3 },    // Teleop Cargo
+				{ 0x17, 4 },    // Teleop Hatch
+				//{ 0x13, 5 },    // Dropped Cargo
+				//{ 0x16, 6 },    // Dropped Hatch
+				{ 0x11, 7 }		// Teleop HAB Level
+			};
 
-            _dataCollector.SetMode(MatchMode.Reset);
-            cbMatchMode.SelectedIndex = 0;
-            
-            _PollingTimer = new Timer();
+			_dataCollector = new CDataCollector();
+			_dataCollector.SetMode(MatchMode.Reset);
+
+		}
+
+		private void Form1_Load(object sender, EventArgs e)
+		{
+			_schedule = new Schedule();
+			if (!_schedule.Load($"{WorkingDirectory}{ScheduleFileName}", _teamList))
+			{
+				Close();
+				return;
+			}
+
+			_robotData = new RobotData();
+			//_robotData.CreateRandomTestData(_schedule.MatchList);
+			//_robotData.SaveData($"{WorkingDirectory}{MatchDataFileName}");
+			_robotData.LoadData($"{WorkingDirectory}{MatchDataFileName}");
+
+			cbMatchMode.SelectedIndex = 0;
+			
+			_PollingTimer = new Timer();
+			_PollingTimer.Enabled = true;
+			_PollingTimer.Interval = Convert.ToInt16(1000);
+			_PollingTimer.Tick += new EventHandler(PollingEvent);
+
+			_analytics = new Analytics();
+			_analytics.Load(_robotData);
+
+			dataGridAnalytics.DataSource = _analytics.AnalyticTable;
+			for (int i = 0; i < ScoreArrayLabels.Count; i++)
+			{
+				dataGridAnalytics.Columns[i + 1].HeaderText = ScoreArrayLabels[i];
+				dataGridAnalytics.Columns[i + 1].Width = 60;
+			}
+
+
+			setTeam(0);
+		}
+
+		private void PollingEvent(Object myObject, EventArgs myEventArgs)
+        {
+
+			if (_dataCollector.Mode != MatchMode.Auton && 
+				_dataCollector.Mode != MatchMode.Teleop)
+				return;
+
+			_PollingTimer.Enabled = false;
+
+
+			foreach (var controller in _dataCollector.Controllers)
+			{
+				if (controller == null) 
+					continue;
+
+				controller.Poll();
+
+				DataGridView dataGrid = null;
+				int colIndex = 0;
+				if (controller.ID >= 1 && controller.ID <= 3)
+				{
+					dataGrid = dgvRed;
+					colIndex = controller.ID-1;
+				}
+				else if (controller.ID >= 4 && controller.ID <= 6)
+				{
+					dataGrid = dgvBlue;
+					colIndex = controller.ID - 4;
+				}
+				else
+				{
+					continue;
+				}
+
+				foreach (var buttonID in _buttonToScoreMap.Keys)
+				{
+					// get selected button's count from controller
+					var countIndex = _buttonToScoreMap[buttonID];
+					int buttonCount = 0;
+					if (countIndex == 5 || countIndex == 6)
+					{
+						buttonCount = controller.AutonCounts[buttonID] + controller.TeleopCounts[buttonID];
+					}
+					else if (_dataCollector.Mode == MatchMode.Auton)
+					{
+						if (buttonID < 0x10)
+							buttonCount = controller.AutonCounts[buttonID];
+					}
+					else
+					{
+						if (buttonID >= 0x10)
+							buttonCount = controller.TeleopCounts[buttonID & 0x0f];
+					}
+
+					dataGrid[colIndex, countIndex].Value = buttonCount;
+				}
+			}
             _PollingTimer.Enabled = true;
-            _PollingTimer.Interval = Convert.ToInt16(1000);
-            _PollingTimer.Tick += new EventHandler(PollingEvent);
-            
-        }
-
-        static public List<string> ScoreArrayLabels = new List<string>()
-        {
-            "Auton HAB Level","Auton Cargo","Auton Hatch","Teleop Cargo","Teleop Hatch","Cargo Dropped","Hatches Dropped","Teleop HAB Level"
-        };
-
-        private void PollingEvent(Object myObject, EventArgs myEventArgs)
-        {
-            _PollingTimer.Enabled = false;
-
-            for (var i = 0; i < 4; i++)
-            {
-                //var activeControllers = _dataCollector.Controllers.Where(item => item != null);
-                
-                var controller = _dataCollector.Controllers[i];
-                if (controller == null)
-                    continue;
-
-                controller.Poll();
-
-                #region Red Table
-                for (int j = 0; j < _robotData.RobotDataList[0].ScoreArray.Length; j++)
-                {
-                    dgvRed[i -1, j].Value = controller.TotalCounts[j].ToString();
-
-                    dgvRed.Rows[i].HeaderCell.Value = ScoreArrayLabels[i];
-                }
-                #endregion
-                
-            }
-
-            for(int i = 0; i < 4; i++)
-            {
-                var controller = _dataCollector.Controllers[i + 4];
-                if (controller == null)
-                    continue;
-
-                controller.Poll();
-
-                #region Blue Table
-                for (int j = 0; j < _robotData.RobotDataList[0].ScoreArray.Length; j++)
-                {
-                    dgvBlue[i, j].Value = controller.TotalCounts[j].ToString();
-
-                    dgvBlue.Rows[i].HeaderCell.Value = ScoreArrayLabels[i];
-                }
-                #endregion
-            }
-
-            _PollingTimer.Enabled = true;
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            setTeam(0);
         }
 
         private void UpDownMatch_ValueChanged(object sender, EventArgs e)
@@ -114,67 +167,93 @@ namespace FRCScouting
 
         private void setTeam(int matchNumber)
         {
-            #region Blue Table
-            dgvBlue.ColumnCount = 3;
-            dgvBlue.Rows.Clear();
-            for (int i = 0; i < 3; i++)
-            {
-                dgvBlue.Columns[i].Name = _schedule.MatchList[matchNumber].BlueArr[i].ToString();
-                //var data = _robotData.RobotDataList.Where(x => x.MatchNumber == matchNumber && x.Alliance == "Blue" && x.TeamNumber.ToString() == dgvBlue.Columns[i].Name).Select(b => b.ScoreArray[0]).ToString();
-            }
+			SetupMatchGrids(dgvBlue, _schedule.MatchList[matchNumber].BlueTeams);
+			SetupMatchGrids(dgvRed, _schedule.MatchList[matchNumber].RedTeams);
 
-            #region Blue Table
+			//         #region Blue Table
+			//         dgvBlue.ColumnCount = 3;
+			//         dgvBlue.Rows.Clear();
+			//         for (int i = 0; i < 3; i++)
+			//         {
+			//             dgvBlue.Columns[i].Name = _schedule.MatchList[matchNumber].BlueTeams[i].ToString();
+			//	dgvBlue.Columns[i].Width = 50;
+			//	//var data = _robotData.RobotDataList.Where(x => x.MatchNumber == matchNumber && x.Alliance == "Blue" && x.TeamNumber.ToString() == dgvBlue.Columns[i].Name).Select(b => b.ScoreArray[0]).ToString();
+			//}
 
-            for (int j = 0; j < _robotData.RobotDataList[0].ScoreArray.Length; j++)
-            {
-                string temp = "hello";
+			//for (int j = 0; j < _robotData.MatchDataList[0].ScoreArray.Length; j++)
+			//         {
+			//             string temp = "hello";
 
-                dgvBlue.Rows.Add(new string[3]
-                {
-                    temp,temp,temp
-                });
+			//             dgvBlue.Rows.Add(new string[3] 
+			//	{
+			//                 temp,temp,temp
+			//             });
+			//	dgvBlue.Rows[j].Height = 30;
+			//             dgvBlue.Rows[j].HeaderCell.Value = ScoreArrayLabels[j];
+			//         }
+			//dgvBlue.RowHeadersWidth = 150;
+			//         dgvBlue.ReadOnly = true;
+			//         dgvBlue.RowHeadersVisible = true;
 
-                dgvBlue.Rows[j].HeaderCell.Value = ScoreArrayLabels[j];
-            }
-            #endregion
+			//         #endregion
 
-            dgvBlue.ReadOnly = true;
-            dgvBlue.RowHeadersVisible = true;
-            dgvBlue.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+			//#region Red Table
+			//dgvRed.ColumnCount = 3;
+   //         dgvRed.Rows.Clear();
+   //         for (int i = 0; i < 3; i++)
+   //         {
+   //             dgvRed.Columns[i].Name = _schedule.MatchList[matchNumber].RedTeams[i].ToString();
+			//	dgvRed.Columns[i].Width = 50;
+			//}
 
-            #endregion
-   
-            #region Red Table
-            dgvRed.ColumnCount = 3;
-            dgvRed.Rows.Clear();
-            for (int i = 0; i < 3; i++)
-            {
-                dgvRed.Columns[i].Name = _schedule.MatchList[matchNumber].RedArr[i].ToString();
-            }
+			//for (int i = 0; i < _robotData.MatchDataList[0].ScoreArray.Length; i++)
+   //         {
+   //             dgvRed.Rows.Add(new string[3]
+   //             {
+   //                 _robotData.MatchDataList[3].ScoreArray[i].ToString(),_robotData.MatchDataList[4].ScoreArray[i].ToString(),_robotData.MatchDataList[5].ScoreArray[i].ToString(),
 
-            string temp2 = "heckle yeah";
-            for (int i = 0; i < _robotData.RobotDataList[0].ScoreArray.Length; i++)
-            {
-                dgvRed.Rows.Add(new string[3]
-                {
-                    //_robotData.RobotDataList[3].ScoreArray[i].ToString(),_robotData.RobotDataList[4].ScoreArray[i].ToString(),_robotData.RobotDataList[5].ScoreArray[i].ToString(),
-                    temp2,temp2,temp2
-                });
-                dgvRed.Rows[i].HeaderCell.Value = ScoreArrayLabels[i];
-            }
+   //             });
+   //             dgvRed.Rows[i].HeaderCell.Value = ScoreArrayLabels[i];
+   //         }
+			//dgvRed.RowHeadersWidth = 150;
+			//dgvRed.ReadOnly = true;
+   //         dgvRed.RowHeadersVisible = true;
 
-            dgvRed.ReadOnly = true;
-            dgvRed.RowHeadersVisible = true;
-            dgvRed.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+			//#endregion
 
-            #endregion
+		}
 
-        }
+		private void SetupMatchGrids(DataGridView grid, int[] teamID)
+		{
+			grid.ColumnCount = 3;
+			grid.Rows.Clear();
+			for (int i = 0; i < 3; i++)
+			{
+				grid.Columns[i].Name = teamID[i].ToString();
+				grid.Columns[i].Width = 50;
+				//var data = _robotData.RobotDataList.Where(x => x.MatchNumber == matchNumber && x.Alliance == "Blue" && x.TeamNumber.ToString() == dgvBlue.Columns[i].Name).Select(b => b.ScoreArray[0]).ToString();
+			}
 
-        private void cbMatchMode_SelectedIndexChanged(object sender, EventArgs e)
+			for (int j = 0; j < _robotData.MatchDataList[0].ScoreArray.Length; j++)
+			{
+				string temp = "hello";
+
+				grid.Rows.Add(new string[3]
+				{
+					temp,temp,temp
+				});
+				grid.Rows[j].Height = 30;
+				grid.Rows[j].HeaderCell.Value = ScoreArrayLabels[j];
+			}
+			grid.RowHeadersWidth = 150;
+			grid.ReadOnly = true;
+			grid.RowHeadersVisible = true;
+		}
+
+		private void cbMatchMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             var index = cbMatchMode.SelectedIndex;
-            btn2NextMode.Enabled = index < cbMatchMode.Items.Count - 1;
+            btnNextMode.Enabled = index < cbMatchMode.Items.Count - 1;
             _dataCollector.SetMode((MatchMode)index);
         }
 
@@ -183,7 +262,6 @@ namespace FRCScouting
             cbMatchMode.SelectedIndex += 1;
         }
         
-
         private void btnLoadData_Click(object sender, EventArgs e) 
         {
             string path = @"C:\Users\Katie\Documents\Robotics\2019-Scouting\FRCScouting"; //UPDATE PATH FOR YOUR OWN COMPUTER
@@ -198,12 +276,12 @@ namespace FRCScouting
 
                         temp.MatchNumber = getMatchNumber();
 
-                        temp.TeamNumber = Convert.ToInt32(_schedule.MatchList[getMatchNumber()].RedArr[i].ToString());
+                        temp.TeamNumber = Convert.ToInt32(_schedule.MatchList[getMatchNumber()].RedTeams[i].ToString());
                  
                         sw.Write($"{temp.MatchNumber},{temp.TeamNumber},{temp.Alliance},");
 
                         #region Blue Table
-                        for (int j = 0; j < _robotData.RobotDataList[0].ScoreArray.Length; j++)
+                        for (int j = 0; j < _robotData.MatchDataList[0].ScoreArray.Length; j++)
                         {   
                             temp.ScoreArray[i] = Convert.ToInt32(dgvBlue[i, j].Value);
                             
@@ -211,7 +289,7 @@ namespace FRCScouting
                         }
                         #endregion
 
-                        _robotData.RobotDataList.Add(temp);
+                        _robotData.MatchDataList.Add(temp);
                             sw.Write('\n');
                     }
 
@@ -221,12 +299,12 @@ namespace FRCScouting
 
                         temp.MatchNumber = getMatchNumber();
 
-                        temp.TeamNumber = Convert.ToInt32(_schedule.MatchList[getMatchNumber()].BlueArr[i].ToString());
+                        temp.TeamNumber = Convert.ToInt32(_schedule.MatchList[getMatchNumber()].BlueTeams[i].ToString());
 
                         sw.Write($"{temp.MatchNumber},{temp.TeamNumber},{temp.Alliance},");
 
                         #region Blue Table
-                        for (int j = 0; j < _robotData.RobotDataList[0].ScoreArray.Length; j++)
+                        for (int j = 0; j < _robotData.MatchDataList[0].ScoreArray.Length; j++)
                         {
                             temp.ScoreArray[i] = Convert.ToInt32(dgvBlue[i, j].Value);
 
@@ -234,7 +312,7 @@ namespace FRCScouting
                         }
                         #endregion
 
-                        _robotData.RobotDataList.Add(temp);
+                        _robotData.MatchDataList.Add(temp);
                         sw.Write('\n');
                     }
                 }
@@ -242,5 +320,5 @@ namespace FRCScouting
             //Change button color to signal that data has been loaded
             btnLoadData.BackColor = Color.Green;
         }
-    }
+	}
 }
