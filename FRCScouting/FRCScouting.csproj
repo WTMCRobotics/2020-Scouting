@@ -60,6 +60,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AnalyticDS.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Form1 Analytics.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

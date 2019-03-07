@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="AnalyticDS" targetNamespace="http://tempuri.org/DataSet1.xsd" xmlns:mstns="http://tempuri.org/DataSet1.xsd" xmlns="http://tempuri.org/DataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="AnalyticDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="AnalyticDS" msprop:Generator_UserDSName="AnalyticDS">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="AnalyticScores" msprop:Generator_TableClassName="AnalyticScoresDataTable" msprop:Generator_TableVarName="tableAnalyticScores" msprop:Generator_RowChangedName="AnalyticScoresRowChanged" msprop:Generator_TablePropName="AnalyticScores" msprop:Generator_RowDeletingName="AnalyticScoresRowDeleting" msprop:Generator_RowChangingName="AnalyticScoresRowChanging" msprop:Generator_RowEvHandlerName="AnalyticScoresRowChangeEventHandler" msprop:Generator_RowDeletedName="AnalyticScoresRowDeleted" msprop:Generator_RowClassName="AnalyticScoresRow" msprop:Generator_UserTableName="AnalyticScores" msprop:Generator_RowEvArgName="AnalyticScoresRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Team" msprop:Generator_ColumnVarNameInTable="columnTeam" msprop:Generator_ColumnPropNameInRow="Team" msprop:Generator_ColumnPropNameInTable="TeamColumn" msprop:Generator_UserColumnName="Team" type="xs:int" />
+              <xs:element name="Count0" msprop:Generator_ColumnVarNameInTable="columnCount0" msprop:Generator_ColumnPropNameInRow="Count0" msprop:Generator_ColumnPropNameInTable="Count0Column" msprop:Generator_UserColumnName="Count0" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Count1" msprop:Generator_ColumnVarNameInTable="columnCount1" msprop:Generator_ColumnPropNameInRow="Count1" msprop:Generator_ColumnPropNameInTable="Count1Column" msprop:Generator_UserColumnName="Count1" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Count2" msdata:Caption="Count1" msprop:Generator_ColumnVarNameInTable="columnCount2" msprop:Generator_ColumnPropNameInRow="Count2" msprop:Generator_ColumnPropNameInTable="Count2Column" msprop:Generator_UserColumnName="Count2" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Count3" msdata:Caption="Count1" msprop:Generator_ColumnVarNameInTable="columnCount3" msprop:Generator_ColumnPropNameInRow="Count3" msprop:Generator_ColumnPropNameInTable="Count3Column" msprop:Generator_UserColumnName="Count3" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Count4" msdata:Caption="Count1" msprop:Generator_ColumnVarNameInTable="columnCount4" msprop:Generator_ColumnPropNameInRow="Count4" msprop:Generator_ColumnPropNameInTable="Count4Column" msprop:Generator_UserColumnName="Count4" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Count5" msdata:Caption="Count1" msprop:Generator_ColumnVarNameInTable="columnCount5" msprop:Generator_ColumnPropNameInRow="Count5" msprop:Generator_ColumnPropNameInTable="Count5Column" msprop:Generator_UserColumnName="Count5" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Count6" msdata:Caption="Count1" msprop:Generator_ColumnVarNameInTable="columnCount6" msprop:Generator_ColumnPropNameInRow="Count6" msprop:Generator_ColumnPropNameInTable="Count6Column" msprop:Generator_UserColumnName="Count6" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Count7" msprop:Generator_ColumnVarNameInTable="columnCount7" msprop:Generator_ColumnPropNameInRow="Count7" msprop:Generator_ColumnPropNameInTable="Count7Column" msprop:Generator_UserColumnName="Count7" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Score" msprop:Generator_ColumnVarNameInTable="columnScore" msprop:Generator_ColumnPropNameInRow="Score" msprop:Generator_ColumnPropNameInTable="ScoreColumn" msprop:Generator_UserColumnName="Score" type="xs:int" default="0" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MatchScores" msprop:Generator_TableClassName="MatchScoresDataTable" msprop:Generator_TableVarName="tableMatchScores" msprop:Generator_TablePropName="MatchScores" msprop:Generator_RowDeletingName="MatchScoresRowDeleting" msprop:Generator_RowChangingName="MatchScoresRowChanging" msprop:Generator_RowEvHandlerName="MatchScoresRowChangeEventHandler" msprop:Generator_RowDeletedName="MatchScoresRowDeleted" msprop:Generator_UserTableName="MatchScores" msprop:Generator_RowChangedName="MatchScoresRowChanged" msprop:Generator_RowEvArgName="MatchScoresRowChangeEvent" msprop:Generator_RowClassName="MatchScoresRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Team" msprop:Generator_ColumnVarNameInTable="columnTeam" msprop:Generator_ColumnPropNameInRow="Team" msprop:Generator_ColumnPropNameInTable="TeamColumn" msprop:Generator_UserColumnName="Team" type="xs:int" />
+              <xs:element name="Match" msprop:Generator_ColumnVarNameInTable="columnMatch" msprop:Generator_ColumnPropNameInRow="Match" msprop:Generator_ColumnPropNameInTable="MatchColumn" msprop:Generator_UserColumnName="Match" type="xs:int" />
+              <xs:element name="Count0" msprop:Generator_ColumnVarNameInTable="columnCount0" msprop:Generator_ColumnPropNameInRow="Count0" msprop:Generator_ColumnPropNameInTable="Count0Column" msprop:Generator_UserColumnName="Count0" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Count1" msprop:Generator_ColumnVarNameInTable="columnCount1" msprop:Generator_ColumnPropNameInRow="Count1" msprop:Generator_ColumnPropNameInTable="Count1Column" msprop:Generator_UserColumnName="Count1" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Count2" msdata:Caption="Count1" msprop:Generator_ColumnVarNameInTable="columnCount2" msprop:Generator_ColumnPropNameInRow="Count2" msprop:Generator_ColumnPropNameInTable="Count2Column" msprop:Generator_UserColumnName="Count2" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Count3" msdata:Caption="Count1" msprop:Generator_ColumnVarNameInTable="columnCount3" msprop:Generator_ColumnPropNameInRow="Count3" msprop:Generator_ColumnPropNameInTable="Count3Column" msprop:Generator_UserColumnName="Count3" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Count4" msdata:Caption="Count1" msprop:Generator_ColumnVarNameInTable="columnCount4" msprop:Generator_ColumnPropNameInRow="Count4" msprop:Generator_ColumnPropNameInTable="Count4Column" msprop:Generator_UserColumnName="Count4" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Count5" msdata:Caption="Count1" msprop:Generator_ColumnVarNameInTable="columnCount5" msprop:Generator_ColumnPropNameInRow="Count5" msprop:Generator_ColumnPropNameInTable="Count5Column" msprop:Generator_UserColumnName="Count5" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Count6" msdata:Caption="Count1" msprop:Generator_ColumnVarNameInTable="columnCount6" msprop:Generator_ColumnPropNameInRow="Count6" msprop:Generator_ColumnPropNameInTable="Count6Column" msprop:Generator_UserColumnName="Count6" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Count7" msprop:Generator_ColumnVarNameInTable="columnCount7" msprop:Generator_ColumnPropNameInRow="Count7" msprop:Generator_ColumnPropNameInTable="Count7Column" msprop:Generator_UserColumnName="Count7" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Score" msprop:Generator_ColumnVarNameInTable="columnScore" msprop:Generator_ColumnPropNameInRow="Score" msprop:Generator_ColumnPropNameInTable="ScoreColumn" msprop:Generator_UserColumnName="Score" type="xs:int" default="0" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:AnalyticScores" />
+      <xs:field xpath="mstns:Team" />
+    </xs:unique>
+    <xs:unique name="MatchScores_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:MatchScores" />
+      <xs:field xpath="mstns:Team" />
+      <xs:field xpath="mstns:Match" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
