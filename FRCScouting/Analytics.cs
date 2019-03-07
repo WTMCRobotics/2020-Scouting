@@ -11,10 +11,10 @@ namespace FRCScouting
 	{
 		private AnalyticDS _dataSet;
 		private AnalyticDS.MatchScoresDataTable _matchTable;
-		private AnalyticDS.AnalyticScoresDataTable _analyticTable;
+		private AnalyticDS.RankingScoresDataTable _rankingTable;
 
 		public AnalyticDS.MatchScoresDataTable MatchTable { get{ return _matchTable; } }
-		public AnalyticDS.AnalyticScoresDataTable AnalyticTable { get { return _analyticTable; } }
+		public AnalyticDS.RankingScoresDataTable RankingTable { get { return _rankingTable; } }
 
 		private RobotData _robotData;
 		public int[] CountWeights { get; }
@@ -23,7 +23,7 @@ namespace FRCScouting
 		{
 			_dataSet = new AnalyticDS();
 			_matchTable = _dataSet.MatchScores;
-			_analyticTable = _dataSet.AnalyticScores;
+			_rankingTable = _dataSet.RankingScores;
 
 			CountWeights = new int[8];
 			CountWeights[0] = 15;
@@ -34,10 +34,11 @@ namespace FRCScouting
 			CountWeights[5] = 10;
 			CountWeights[6] = 15;
 			CountWeights[7] = -10;
-			int sum = 0;
 
+
+			//int sum = 0;
 			//for (int i = 0; i < 8; i++)
-			//	sum += CountWeights[i];
+			//sum += CountWeights[i];
 
 		}
 
@@ -56,28 +57,37 @@ namespace FRCScouting
 				row.Count5 = matchData.ScoreArray[5];
 				row.Count6 = matchData.ScoreArray[6];
 				row.Count7 = matchData.ScoreArray[7];
-				row.Score = GetWeightedScore(matchData);
+				row.Weighted = GetWeightedScore(matchData);
+				row.Score	= matchData.Score;
+				row.RPs		= matchData.RankingPoints;
 				_matchTable.Rows.Add(row);
 			}
+			LoadTeamRankings();
+		}
+
+		public void LoadTeamRankings()
+		{
 
 			foreach (var matchRow in _dataSet.MatchScores)
 			{
-				var analyticRow = _analyticTable.FindByTeam(matchRow.Team);
-				if (analyticRow == null)
+				var rankingRow = _rankingTable.FindByTeam(matchRow.Team);
+				if (rankingRow == null)
 				{
-					analyticRow = _analyticTable.NewAnalyticScoresRow();
-					analyticRow.Team = matchRow.Team;
-					_analyticTable.Rows.Add(analyticRow);
+					rankingRow = _rankingTable.NewRankingScoresRow();
+					rankingRow.Team = matchRow.Team;
+					_rankingTable.Rows.Add(rankingRow);
 				}
-				analyticRow.Count0 += matchRow.Count0;
-				analyticRow.Count1 += matchRow.Count1;
-				analyticRow.Count2 += matchRow.Count2;
-				analyticRow.Count3 += matchRow.Count3;
-				analyticRow.Count4 += matchRow.Count4;
-				analyticRow.Count5 += matchRow.Count5;
-				analyticRow.Count6 += matchRow.Count6;
-				analyticRow.Count7 += matchRow.Count7;
-				analyticRow.Score  += matchRow.Score;
+				rankingRow.Count0 += matchRow.Count0;
+				rankingRow.Count1 += matchRow.Count1;
+				rankingRow.Count2 += matchRow.Count2;
+				rankingRow.Count3 += matchRow.Count3;
+				rankingRow.Count4 += matchRow.Count4;
+				rankingRow.Count5 += matchRow.Count5;
+				rankingRow.Count6 += matchRow.Count6;
+				rankingRow.Count7 += matchRow.Count7;
+				rankingRow.Weighted += matchRow.Weighted;
+				rankingRow.Score  += matchRow.Score;
+				rankingRow.RPs	  += matchRow.RPs;
 			}
 		}
 

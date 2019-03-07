@@ -12,7 +12,7 @@
   <xs:element name="AnalyticDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="AnalyticDS" msprop:Generator_UserDSName="AnalyticDS">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="AnalyticScores" msprop:Generator_TableClassName="AnalyticScoresDataTable" msprop:Generator_TableVarName="tableAnalyticScores" msprop:Generator_RowChangedName="AnalyticScoresRowChanged" msprop:Generator_TablePropName="AnalyticScores" msprop:Generator_RowDeletingName="AnalyticScoresRowDeleting" msprop:Generator_RowChangingName="AnalyticScoresRowChanging" msprop:Generator_RowEvHandlerName="AnalyticScoresRowChangeEventHandler" msprop:Generator_RowDeletedName="AnalyticScoresRowDeleted" msprop:Generator_RowClassName="AnalyticScoresRow" msprop:Generator_UserTableName="AnalyticScores" msprop:Generator_RowEvArgName="AnalyticScoresRowChangeEvent">
+        <xs:element name="RankingScores" msprop:Generator_TableClassName="RankingScoresDataTable" msprop:Generator_TableVarName="tableRankingScores" msprop:Generator_RowChangedName="RankingScoresRowChanged" msprop:Generator_TablePropName="RankingScores" msprop:Generator_RowDeletingName="RankingScoresRowDeleting" msprop:Generator_RowChangingName="RankingScoresRowChanging" msprop:Generator_RowEvHandlerName="RankingScoresRowChangeEventHandler" msprop:Generator_RowDeletedName="RankingScoresRowDeleted" msprop:Generator_RowClassName="RankingScoresRow" msprop:Generator_UserTableName="RankingScores" msprop:Generator_RowEvArgName="RankingScoresRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Team" msprop:Generator_ColumnVarNameInTable="columnTeam" msprop:Generator_ColumnPropNameInRow="Team" msprop:Generator_ColumnPropNameInTable="TeamColumn" msprop:Generator_UserColumnName="Team" type="xs:int" />
@@ -24,7 +24,9 @@
               <xs:element name="Count5" msdata:Caption="Count1" msprop:Generator_ColumnVarNameInTable="columnCount5" msprop:Generator_ColumnPropNameInRow="Count5" msprop:Generator_ColumnPropNameInTable="Count5Column" msprop:Generator_UserColumnName="Count5" type="xs:int" default="0" minOccurs="0" />
               <xs:element name="Count6" msdata:Caption="Count1" msprop:Generator_ColumnVarNameInTable="columnCount6" msprop:Generator_ColumnPropNameInRow="Count6" msprop:Generator_ColumnPropNameInTable="Count6Column" msprop:Generator_UserColumnName="Count6" type="xs:int" default="0" minOccurs="0" />
               <xs:element name="Count7" msprop:Generator_ColumnVarNameInTable="columnCount7" msprop:Generator_ColumnPropNameInRow="Count7" msprop:Generator_ColumnPropNameInTable="Count7Column" msprop:Generator_UserColumnName="Count7" type="xs:int" default="0" minOccurs="0" />
-              <xs:element name="Score" msprop:Generator_ColumnVarNameInTable="columnScore" msprop:Generator_ColumnPropNameInRow="Score" msprop:Generator_ColumnPropNameInTable="ScoreColumn" msprop:Generator_UserColumnName="Score" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Weighted" msprop:Generator_ColumnVarNameInTable="columnWeighted" msprop:Generator_ColumnPropNameInRow="Weighted" msprop:Generator_ColumnPropNameInTable="WeightedColumn" msprop:Generator_UserColumnName="Weighted" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Score" msprop:Generator_ColumnVarNameInTable="columnScore" msprop:Generator_ColumnPropNameInRow="Score" msprop:Generator_ColumnPropNameInTable="ScoreColumn" msprop:Generator_UserColumnName="Score" type="xs:int" default="0" />
+              <xs:element name="RPs" msprop:Generator_ColumnVarNameInTable="columnRPs" msprop:Generator_ColumnPropNameInRow="RPs" msprop:Generator_ColumnPropNameInTable="RPsColumn" msprop:Generator_UserColumnName="RPs" type="xs:int" default="0" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -41,14 +43,16 @@
               <xs:element name="Count5" msdata:Caption="Count1" msprop:Generator_ColumnVarNameInTable="columnCount5" msprop:Generator_ColumnPropNameInRow="Count5" msprop:Generator_ColumnPropNameInTable="Count5Column" msprop:Generator_UserColumnName="Count5" type="xs:int" default="0" minOccurs="0" />
               <xs:element name="Count6" msdata:Caption="Count1" msprop:Generator_ColumnVarNameInTable="columnCount6" msprop:Generator_ColumnPropNameInRow="Count6" msprop:Generator_ColumnPropNameInTable="Count6Column" msprop:Generator_UserColumnName="Count6" type="xs:int" default="0" minOccurs="0" />
               <xs:element name="Count7" msprop:Generator_ColumnVarNameInTable="columnCount7" msprop:Generator_ColumnPropNameInRow="Count7" msprop:Generator_ColumnPropNameInTable="Count7Column" msprop:Generator_UserColumnName="Count7" type="xs:int" default="0" minOccurs="0" />
-              <xs:element name="Score" msprop:Generator_ColumnVarNameInTable="columnScore" msprop:Generator_ColumnPropNameInRow="Score" msprop:Generator_ColumnPropNameInTable="ScoreColumn" msprop:Generator_UserColumnName="Score" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Weighted" msprop:Generator_ColumnVarNameInTable="columnWeighted" msprop:Generator_ColumnPropNameInRow="Weighted" msprop:Generator_ColumnPropNameInTable="WeightedColumn" msprop:Generator_UserColumnName="Weighted" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Score" msprop:Generator_ColumnVarNameInTable="columnScore" msprop:Generator_ColumnPropNameInRow="Score" msprop:Generator_ColumnPropNameInTable="ScoreColumn" msprop:Generator_UserColumnName="Score" type="xs:int" default="0" />
+              <xs:element name="RPs" msprop:Generator_ColumnVarNameInTable="columnRPs" msprop:Generator_ColumnPropNameInRow="RPs" msprop:Generator_ColumnPropNameInTable="RPsColumn" msprop:Generator_UserColumnName="RPs" type="xs:int" default="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:AnalyticScores" />
+      <xs:selector xpath=".//mstns:RankingScores" />
       <xs:field xpath="mstns:Team" />
     </xs:unique>
     <xs:unique name="MatchScores_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">

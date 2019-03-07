@@ -12,28 +12,32 @@ using Scouting.DataCollector;
 
 namespace FRCScouting
 {
-    public partial class Form1 : Form
-    {
+	public partial class Form1 : Form
+	{
 		private const string WorkingDirectory = "";
 		private const string ScheduleFileName = "Schedule.txt";
 		private const string MatchDataFileName = "MatchData.csv";
 
 		private Schedule _schedule;
-        private RobotData _robotData;
+		private RobotData _robotData;
 		private Analytics _analytics;
-        private CDataCollector _dataCollector;
+		private CDataCollector _dataCollector;
 		private List<int> _teamList = new List<int>();
 		private Dictionary<int, int> _buttonToScoreMap;
-        Timer _PollingTimer;
+		Timer _PollingTimer;
 
 		static public List<string> ScoreArrayLabels = new List<string>()
 		{
 			"Auton HAB Level","Auton Cargo","Auton Hatch","Teleop Cargo","Teleop Hatch","Cargo Dropped","Hatches Dropped","Teleop HAB Level"
 		};
+		static public List<string> RankingGridLabels = new List<string>()
+		{
+			"Auton HAB Level","Auton Cargo","Auton Hatch","Teleop Cargo","Teleop Hatch","Cargo Dropped","Hatches Dropped","Teleop HAB Level", "Perf. Factor" ,"Match Score", "Match RPs"
+		};
 
 		public Form1()
-        {
-            InitializeComponent();
+		{
+			InitializeComponent();
 
 			// Maps physical buttons to scoring counts
 			//	Auton buttons 0x00-0x07
@@ -73,7 +77,7 @@ namespace FRCScouting
 			_robotData.LoadData($"{WorkingDirectory}{MatchDataFileName}");
 
 			cbMatchMode.SelectedIndex = 0;
-			
+
 			_PollingTimer = new Timer();
 			_PollingTimer.Enabled = true;
 			_PollingTimer.Interval = Convert.ToInt16(1000);
@@ -82,15 +86,42 @@ namespace FRCScouting
 			_analytics = new Analytics();
 			_analytics.Load(_robotData);
 
-			dataGridAnalytics.DataSource = _analytics.AnalyticTable;
-			for (int i = 0; i < ScoreArrayLabels.Count; i++)
-			{
-				dataGridAnalytics.Columns[i + 1].HeaderText = ScoreArrayLabels[i];
-				dataGridAnalytics.Columns[i + 1].Width = 60;
-			}
+			InitializeRankingsTab();
+			InitializeTeamTab();
+
 
 
 			setTeam(0);
+		}
+
+		private void InitializeRankingsTab()
+		{
+			dataGridRankings.DataSource = _analytics.RankingTable;
+
+			for (int i = 0; i < RankingGridLabels.Count; i++)
+				dataGridRankings.Columns[i + 1].HeaderText = RankingGridLabels[i];
+
+			for (int i = 0; i < dataGridRankings.Columns.Count; i++)
+				dataGridRankings.Columns[i].Width = 55;
+		}
+
+		private void InitializeTeamTab()
+		{
+			foreach (var team in _teamList)
+			{
+				cbTeam.Items.Add(team);
+			}
+			cbTeam.SelectedIndex = 0;
+
+			dataGridPerformance.DataSource = _analytics.MatchTable;
+
+			for (int i = 0; i < RankingGridLabels.Count; i++)
+				dataGridPerformance.Columns[i + 1].HeaderText = RankingGridLabels[i];
+
+			for (int i = 0; i < dataGridPerformance.Columns.Count; i++)
+				dataGridPerformance.Columns[i].Width = 55;
+
+
 		}
 
 		private void PollingEvent(Object myObject, EventArgs myEventArgs)
@@ -169,57 +200,6 @@ namespace FRCScouting
         {
 			SetupMatchGrids(dgvBlue, _schedule.MatchList[matchNumber].BlueTeams);
 			SetupMatchGrids(dgvRed, _schedule.MatchList[matchNumber].RedTeams);
-
-			//         #region Blue Table
-			//         dgvBlue.ColumnCount = 3;
-			//         dgvBlue.Rows.Clear();
-			//         for (int i = 0; i < 3; i++)
-			//         {
-			//             dgvBlue.Columns[i].Name = _schedule.MatchList[matchNumber].BlueTeams[i].ToString();
-			//	dgvBlue.Columns[i].Width = 50;
-			//	//var data = _robotData.RobotDataList.Where(x => x.MatchNumber == matchNumber && x.Alliance == "Blue" && x.TeamNumber.ToString() == dgvBlue.Columns[i].Name).Select(b => b.ScoreArray[0]).ToString();
-			//}
-
-			//for (int j = 0; j < _robotData.MatchDataList[0].ScoreArray.Length; j++)
-			//         {
-			//             string temp = "hello";
-
-			//             dgvBlue.Rows.Add(new string[3] 
-			//	{
-			//                 temp,temp,temp
-			//             });
-			//	dgvBlue.Rows[j].Height = 30;
-			//             dgvBlue.Rows[j].HeaderCell.Value = ScoreArrayLabels[j];
-			//         }
-			//dgvBlue.RowHeadersWidth = 150;
-			//         dgvBlue.ReadOnly = true;
-			//         dgvBlue.RowHeadersVisible = true;
-
-			//         #endregion
-
-			//#region Red Table
-			//dgvRed.ColumnCount = 3;
-   //         dgvRed.Rows.Clear();
-   //         for (int i = 0; i < 3; i++)
-   //         {
-   //             dgvRed.Columns[i].Name = _schedule.MatchList[matchNumber].RedTeams[i].ToString();
-			//	dgvRed.Columns[i].Width = 50;
-			//}
-
-			//for (int i = 0; i < _robotData.MatchDataList[0].ScoreArray.Length; i++)
-   //         {
-   //             dgvRed.Rows.Add(new string[3]
-   //             {
-   //                 _robotData.MatchDataList[3].ScoreArray[i].ToString(),_robotData.MatchDataList[4].ScoreArray[i].ToString(),_robotData.MatchDataList[5].ScoreArray[i].ToString(),
-
-   //             });
-   //             dgvRed.Rows[i].HeaderCell.Value = ScoreArrayLabels[i];
-   //         }
-			//dgvRed.RowHeadersWidth = 150;
-			//dgvRed.ReadOnly = true;
-   //         dgvRed.RowHeadersVisible = true;
-
-			//#endregion
 
 		}
 
@@ -320,5 +300,32 @@ namespace FRCScouting
             //Change button color to signal that data has been loaded
             btnLoadData.BackColor = Color.Green;
         }
+
+		private void cbTeam_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			int team = (int)cbTeam.SelectedItem;
+			_analytics.MatchTable.DefaultView.RowFilter = $"Team = {team}";
+		}
+
+		private void udRedRPs_ValueChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void udRedScore_ValueChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void udBlueRPs_ValueChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void udBlueScore_ValueChanged(object sender, EventArgs e)
+		{
+
+		}
 	}
+
 }

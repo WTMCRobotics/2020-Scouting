@@ -24,7 +24,7 @@ namespace FRCScouting {
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
     public partial class AnalyticDS : global::System.Data.DataSet {
         
-        private AnalyticScoresDataTable tableAnalyticScores;
+        private RankingScoresDataTable tableRankingScores;
         
         private MatchScoresDataTable tableMatchScores;
         
@@ -56,8 +56,8 @@ namespace FRCScouting {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["AnalyticScores"] != null)) {
-                    base.Tables.Add(new AnalyticScoresDataTable(ds.Tables["AnalyticScores"]));
+                if ((ds.Tables["RankingScores"] != null)) {
+                    base.Tables.Add(new RankingScoresDataTable(ds.Tables["RankingScores"]));
                 }
                 if ((ds.Tables["MatchScores"] != null)) {
                     base.Tables.Add(new MatchScoresDataTable(ds.Tables["MatchScores"]));
@@ -84,9 +84,9 @@ namespace FRCScouting {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public AnalyticScoresDataTable AnalyticScores {
+        public RankingScoresDataTable RankingScores {
             get {
-                return this.tableAnalyticScores;
+                return this.tableRankingScores;
             }
         }
         
@@ -167,8 +167,8 @@ namespace FRCScouting {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["AnalyticScores"] != null)) {
-                    base.Tables.Add(new AnalyticScoresDataTable(ds.Tables["AnalyticScores"]));
+                if ((ds.Tables["RankingScores"] != null)) {
+                    base.Tables.Add(new RankingScoresDataTable(ds.Tables["RankingScores"]));
                 }
                 if ((ds.Tables["MatchScores"] != null)) {
                     base.Tables.Add(new MatchScoresDataTable(ds.Tables["MatchScores"]));
@@ -206,10 +206,10 @@ namespace FRCScouting {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableAnalyticScores = ((AnalyticScoresDataTable)(base.Tables["AnalyticScores"]));
+            this.tableRankingScores = ((RankingScoresDataTable)(base.Tables["RankingScores"]));
             if ((initTable == true)) {
-                if ((this.tableAnalyticScores != null)) {
-                    this.tableAnalyticScores.InitVars();
+                if ((this.tableRankingScores != null)) {
+                    this.tableRankingScores.InitVars();
                 }
             }
             this.tableMatchScores = ((MatchScoresDataTable)(base.Tables["MatchScores"]));
@@ -228,15 +228,15 @@ namespace FRCScouting {
             this.Namespace = "http://tempuri.org/DataSet1.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableAnalyticScores = new AnalyticScoresDataTable();
-            base.Tables.Add(this.tableAnalyticScores);
+            this.tableRankingScores = new RankingScoresDataTable();
+            base.Tables.Add(this.tableRankingScores);
             this.tableMatchScores = new MatchScoresDataTable();
             base.Tables.Add(this.tableMatchScores);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        private bool ShouldSerializeAnalyticScores() {
+        private bool ShouldSerializeRankingScores() {
             return false;
         }
         
@@ -302,7 +302,7 @@ namespace FRCScouting {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        public delegate void AnalyticScoresRowChangeEventHandler(object sender, AnalyticScoresRowChangeEvent e);
+        public delegate void RankingScoresRowChangeEventHandler(object sender, RankingScoresRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public delegate void MatchScoresRowChangeEventHandler(object sender, MatchScoresRowChangeEvent e);
@@ -312,7 +312,7 @@ namespace FRCScouting {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class AnalyticScoresDataTable : global::System.Data.TypedTableBase<AnalyticScoresRow> {
+        public partial class RankingScoresDataTable : global::System.Data.TypedTableBase<RankingScoresRow> {
             
             private global::System.Data.DataColumn columnTeam;
             
@@ -332,12 +332,16 @@ namespace FRCScouting {
             
             private global::System.Data.DataColumn columnCount7;
             
+            private global::System.Data.DataColumn columnWeighted;
+            
             private global::System.Data.DataColumn columnScore;
+            
+            private global::System.Data.DataColumn columnRPs;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public AnalyticScoresDataTable() {
-                this.TableName = "AnalyticScores";
+            public RankingScoresDataTable() {
+                this.TableName = "RankingScores";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -345,7 +349,7 @@ namespace FRCScouting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            internal AnalyticScoresDataTable(global::System.Data.DataTable table) {
+            internal RankingScoresDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -362,7 +366,7 @@ namespace FRCScouting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            protected AnalyticScoresDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected RankingScoresDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -441,9 +445,25 @@ namespace FRCScouting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn WeightedColumn {
+                get {
+                    return this.columnWeighted;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public global::System.Data.DataColumn ScoreColumn {
                 get {
                     return this.columnScore;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn RPsColumn {
+                get {
+                    return this.columnRPs;
                 }
             }
             
@@ -458,34 +478,34 @@ namespace FRCScouting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public AnalyticScoresRow this[int index] {
+            public RankingScoresRow this[int index] {
                 get {
-                    return ((AnalyticScoresRow)(this.Rows[index]));
+                    return ((RankingScoresRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public event AnalyticScoresRowChangeEventHandler AnalyticScoresRowChanging;
+            public event RankingScoresRowChangeEventHandler RankingScoresRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public event AnalyticScoresRowChangeEventHandler AnalyticScoresRowChanged;
+            public event RankingScoresRowChangeEventHandler RankingScoresRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public event AnalyticScoresRowChangeEventHandler AnalyticScoresRowDeleting;
+            public event RankingScoresRowChangeEventHandler RankingScoresRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public event AnalyticScoresRowChangeEventHandler AnalyticScoresRowDeleted;
+            public event RankingScoresRowChangeEventHandler RankingScoresRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void AddAnalyticScoresRow(AnalyticScoresRow row) {
+            public void AddRankingScoresRow(RankingScoresRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public AnalyticScoresRow AddAnalyticScoresRow(int Team, int Count0, int Count1, int Count2, int Count3, int Count4, int Count5, int Count6, int Count7, int Score) {
-                AnalyticScoresRow rowAnalyticScoresRow = ((AnalyticScoresRow)(this.NewRow()));
+            public RankingScoresRow AddRankingScoresRow(int Team, int Count0, int Count1, int Count2, int Count3, int Count4, int Count5, int Count6, int Count7, int Weighted, int Score, int RPs) {
+                RankingScoresRow rowRankingScoresRow = ((RankingScoresRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Team,
                         Count0,
@@ -496,23 +516,25 @@ namespace FRCScouting {
                         Count5,
                         Count6,
                         Count7,
-                        Score};
-                rowAnalyticScoresRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowAnalyticScoresRow);
-                return rowAnalyticScoresRow;
+                        Weighted,
+                        Score,
+                        RPs};
+                rowRankingScoresRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowRankingScoresRow);
+                return rowRankingScoresRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public AnalyticScoresRow FindByTeam(int Team) {
-                return ((AnalyticScoresRow)(this.Rows.Find(new object[] {
+            public RankingScoresRow FindByTeam(int Team) {
+                return ((RankingScoresRow)(this.Rows.Find(new object[] {
                             Team})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                AnalyticScoresDataTable cln = ((AnalyticScoresDataTable)(base.Clone()));
+                RankingScoresDataTable cln = ((RankingScoresDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -520,7 +542,7 @@ namespace FRCScouting {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new AnalyticScoresDataTable();
+                return new RankingScoresDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -535,7 +557,9 @@ namespace FRCScouting {
                 this.columnCount5 = base.Columns["Count5"];
                 this.columnCount6 = base.Columns["Count6"];
                 this.columnCount7 = base.Columns["Count7"];
+                this.columnWeighted = base.Columns["Weighted"];
                 this.columnScore = base.Columns["Score"];
+                this.columnRPs = base.Columns["RPs"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -559,8 +583,12 @@ namespace FRCScouting {
                 base.Columns.Add(this.columnCount6);
                 this.columnCount7 = new global::System.Data.DataColumn("Count7", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCount7);
+                this.columnWeighted = new global::System.Data.DataColumn("Weighted", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWeighted);
                 this.columnScore = new global::System.Data.DataColumn("Score", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnScore);
+                this.columnRPs = new global::System.Data.DataColumn("RPs", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRPs);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnTeam}, true));
                 this.columnTeam.AllowDBNull = false;
@@ -578,33 +606,36 @@ namespace FRCScouting {
                 this.columnCount6.Caption = "Count1";
                 this.columnCount6.DefaultValue = ((int)(0));
                 this.columnCount7.DefaultValue = ((int)(0));
+                this.columnWeighted.DefaultValue = ((int)(0));
+                this.columnScore.AllowDBNull = false;
                 this.columnScore.DefaultValue = ((int)(0));
+                this.columnRPs.DefaultValue = ((int)(0));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public AnalyticScoresRow NewAnalyticScoresRow() {
-                return ((AnalyticScoresRow)(this.NewRow()));
+            public RankingScoresRow NewRankingScoresRow() {
+                return ((RankingScoresRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new AnalyticScoresRow(builder);
+                return new RankingScoresRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(AnalyticScoresRow);
+                return typeof(RankingScoresRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.AnalyticScoresRowChanged != null)) {
-                    this.AnalyticScoresRowChanged(this, new AnalyticScoresRowChangeEvent(((AnalyticScoresRow)(e.Row)), e.Action));
+                if ((this.RankingScoresRowChanged != null)) {
+                    this.RankingScoresRowChanged(this, new RankingScoresRowChangeEvent(((RankingScoresRow)(e.Row)), e.Action));
                 }
             }
             
@@ -612,8 +643,8 @@ namespace FRCScouting {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.AnalyticScoresRowChanging != null)) {
-                    this.AnalyticScoresRowChanging(this, new AnalyticScoresRowChangeEvent(((AnalyticScoresRow)(e.Row)), e.Action));
+                if ((this.RankingScoresRowChanging != null)) {
+                    this.RankingScoresRowChanging(this, new RankingScoresRowChangeEvent(((RankingScoresRow)(e.Row)), e.Action));
                 }
             }
             
@@ -621,8 +652,8 @@ namespace FRCScouting {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.AnalyticScoresRowDeleted != null)) {
-                    this.AnalyticScoresRowDeleted(this, new AnalyticScoresRowChangeEvent(((AnalyticScoresRow)(e.Row)), e.Action));
+                if ((this.RankingScoresRowDeleted != null)) {
+                    this.RankingScoresRowDeleted(this, new RankingScoresRowChangeEvent(((RankingScoresRow)(e.Row)), e.Action));
                 }
             }
             
@@ -630,14 +661,14 @@ namespace FRCScouting {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.AnalyticScoresRowDeleting != null)) {
-                    this.AnalyticScoresRowDeleting(this, new AnalyticScoresRowChangeEvent(((AnalyticScoresRow)(e.Row)), e.Action));
+                if ((this.RankingScoresRowDeleting != null)) {
+                    this.RankingScoresRowDeleting(this, new RankingScoresRowChangeEvent(((RankingScoresRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void RemoveAnalyticScoresRow(AnalyticScoresRow row) {
+            public void RemoveRankingScoresRow(RankingScoresRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -664,7 +695,7 @@ namespace FRCScouting {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "AnalyticScoresDataTable";
+                attribute2.FixedValue = "RankingScoresDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -732,7 +763,11 @@ namespace FRCScouting {
             
             private global::System.Data.DataColumn columnCount7;
             
+            private global::System.Data.DataColumn columnWeighted;
+            
             private global::System.Data.DataColumn columnScore;
+            
+            private global::System.Data.DataColumn columnRPs;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
@@ -849,9 +884,25 @@ namespace FRCScouting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn WeightedColumn {
+                get {
+                    return this.columnWeighted;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public global::System.Data.DataColumn ScoreColumn {
                 get {
                     return this.columnScore;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn RPsColumn {
+                get {
+                    return this.columnRPs;
                 }
             }
             
@@ -892,7 +943,7 @@ namespace FRCScouting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public MatchScoresRow AddMatchScoresRow(int Team, int Match, int Count0, int Count1, int Count2, int Count3, int Count4, int Count5, int Count6, int Count7, int Score) {
+            public MatchScoresRow AddMatchScoresRow(int Team, int Match, int Count0, int Count1, int Count2, int Count3, int Count4, int Count5, int Count6, int Count7, int Weighted, int Score, int RPs) {
                 MatchScoresRow rowMatchScoresRow = ((MatchScoresRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Team,
@@ -905,7 +956,9 @@ namespace FRCScouting {
                         Count5,
                         Count6,
                         Count7,
-                        Score};
+                        Weighted,
+                        Score,
+                        RPs};
                 rowMatchScoresRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMatchScoresRow);
                 return rowMatchScoresRow;
@@ -946,7 +999,9 @@ namespace FRCScouting {
                 this.columnCount5 = base.Columns["Count5"];
                 this.columnCount6 = base.Columns["Count6"];
                 this.columnCount7 = base.Columns["Count7"];
+                this.columnWeighted = base.Columns["Weighted"];
                 this.columnScore = base.Columns["Score"];
+                this.columnRPs = base.Columns["RPs"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -972,8 +1027,12 @@ namespace FRCScouting {
                 base.Columns.Add(this.columnCount6);
                 this.columnCount7 = new global::System.Data.DataColumn("Count7", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCount7);
+                this.columnWeighted = new global::System.Data.DataColumn("Weighted", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWeighted);
                 this.columnScore = new global::System.Data.DataColumn("Score", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnScore);
+                this.columnRPs = new global::System.Data.DataColumn("RPs", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRPs);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnTeam,
                                 this.columnMatch}, true));
@@ -992,7 +1051,11 @@ namespace FRCScouting {
                 this.columnCount6.Caption = "Count1";
                 this.columnCount6.DefaultValue = ((int)(0));
                 this.columnCount7.DefaultValue = ((int)(0));
+                this.columnWeighted.DefaultValue = ((int)(0));
+                this.columnScore.AllowDBNull = false;
                 this.columnScore.DefaultValue = ((int)(0));
+                this.columnRPs.AllowDBNull = false;
+                this.columnRPs.DefaultValue = ((int)(0));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1122,25 +1185,25 @@ namespace FRCScouting {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class AnalyticScoresRow : global::System.Data.DataRow {
+        public partial class RankingScoresRow : global::System.Data.DataRow {
             
-            private AnalyticScoresDataTable tableAnalyticScores;
+            private RankingScoresDataTable tableRankingScores;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            internal AnalyticScoresRow(global::System.Data.DataRowBuilder rb) : 
+            internal RankingScoresRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableAnalyticScores = ((AnalyticScoresDataTable)(this.Table));
+                this.tableRankingScores = ((RankingScoresDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public int Team {
                 get {
-                    return ((int)(this[this.tableAnalyticScores.TeamColumn]));
+                    return ((int)(this[this.tableRankingScores.TeamColumn]));
                 }
                 set {
-                    this[this.tableAnalyticScores.TeamColumn] = value;
+                    this[this.tableRankingScores.TeamColumn] = value;
                 }
             }
             
@@ -1149,14 +1212,14 @@ namespace FRCScouting {
             public int Count0 {
                 get {
                     try {
-                        return ((int)(this[this.tableAnalyticScores.Count0Column]));
+                        return ((int)(this[this.tableRankingScores.Count0Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Count0\' in table \'AnalyticScores\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Count0\' in table \'RankingScores\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableAnalyticScores.Count0Column] = value;
+                    this[this.tableRankingScores.Count0Column] = value;
                 }
             }
             
@@ -1165,14 +1228,14 @@ namespace FRCScouting {
             public int Count1 {
                 get {
                     try {
-                        return ((int)(this[this.tableAnalyticScores.Count1Column]));
+                        return ((int)(this[this.tableRankingScores.Count1Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Count1\' in table \'AnalyticScores\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Count1\' in table \'RankingScores\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableAnalyticScores.Count1Column] = value;
+                    this[this.tableRankingScores.Count1Column] = value;
                 }
             }
             
@@ -1181,14 +1244,14 @@ namespace FRCScouting {
             public int Count2 {
                 get {
                     try {
-                        return ((int)(this[this.tableAnalyticScores.Count2Column]));
+                        return ((int)(this[this.tableRankingScores.Count2Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Count2\' in table \'AnalyticScores\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Count2\' in table \'RankingScores\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableAnalyticScores.Count2Column] = value;
+                    this[this.tableRankingScores.Count2Column] = value;
                 }
             }
             
@@ -1197,14 +1260,14 @@ namespace FRCScouting {
             public int Count3 {
                 get {
                     try {
-                        return ((int)(this[this.tableAnalyticScores.Count3Column]));
+                        return ((int)(this[this.tableRankingScores.Count3Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Count3\' in table \'AnalyticScores\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Count3\' in table \'RankingScores\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableAnalyticScores.Count3Column] = value;
+                    this[this.tableRankingScores.Count3Column] = value;
                 }
             }
             
@@ -1213,14 +1276,14 @@ namespace FRCScouting {
             public int Count4 {
                 get {
                     try {
-                        return ((int)(this[this.tableAnalyticScores.Count4Column]));
+                        return ((int)(this[this.tableRankingScores.Count4Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Count4\' in table \'AnalyticScores\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Count4\' in table \'RankingScores\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableAnalyticScores.Count4Column] = value;
+                    this[this.tableRankingScores.Count4Column] = value;
                 }
             }
             
@@ -1229,14 +1292,14 @@ namespace FRCScouting {
             public int Count5 {
                 get {
                     try {
-                        return ((int)(this[this.tableAnalyticScores.Count5Column]));
+                        return ((int)(this[this.tableRankingScores.Count5Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Count5\' in table \'AnalyticScores\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Count5\' in table \'RankingScores\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableAnalyticScores.Count5Column] = value;
+                    this[this.tableRankingScores.Count5Column] = value;
                 }
             }
             
@@ -1245,14 +1308,14 @@ namespace FRCScouting {
             public int Count6 {
                 get {
                     try {
-                        return ((int)(this[this.tableAnalyticScores.Count6Column]));
+                        return ((int)(this[this.tableRankingScores.Count6Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Count6\' in table \'AnalyticScores\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Count6\' in table \'RankingScores\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableAnalyticScores.Count6Column] = value;
+                    this[this.tableRankingScores.Count6Column] = value;
                 }
             }
             
@@ -1261,14 +1324,30 @@ namespace FRCScouting {
             public int Count7 {
                 get {
                     try {
-                        return ((int)(this[this.tableAnalyticScores.Count7Column]));
+                        return ((int)(this[this.tableRankingScores.Count7Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Count7\' in table \'AnalyticScores\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Count7\' in table \'RankingScores\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableAnalyticScores.Count7Column] = value;
+                    this[this.tableRankingScores.Count7Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int Weighted {
+                get {
+                    try {
+                        return ((int)(this[this.tableRankingScores.WeightedColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Weighted\' in table \'RankingScores\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableRankingScores.WeightedColumn] = value;
                 }
             }
             
@@ -1276,124 +1355,147 @@ namespace FRCScouting {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public int Score {
                 get {
+                    return ((int)(this[this.tableRankingScores.ScoreColumn]));
+                }
+                set {
+                    this[this.tableRankingScores.ScoreColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int RPs {
+                get {
                     try {
-                        return ((int)(this[this.tableAnalyticScores.ScoreColumn]));
+                        return ((int)(this[this.tableRankingScores.RPsColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Score\' in table \'AnalyticScores\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'RPs\' in table \'RankingScores\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableAnalyticScores.ScoreColumn] = value;
+                    this[this.tableRankingScores.RPsColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsCount0Null() {
-                return this.IsNull(this.tableAnalyticScores.Count0Column);
+                return this.IsNull(this.tableRankingScores.Count0Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetCount0Null() {
-                this[this.tableAnalyticScores.Count0Column] = global::System.Convert.DBNull;
+                this[this.tableRankingScores.Count0Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsCount1Null() {
-                return this.IsNull(this.tableAnalyticScores.Count1Column);
+                return this.IsNull(this.tableRankingScores.Count1Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetCount1Null() {
-                this[this.tableAnalyticScores.Count1Column] = global::System.Convert.DBNull;
+                this[this.tableRankingScores.Count1Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsCount2Null() {
-                return this.IsNull(this.tableAnalyticScores.Count2Column);
+                return this.IsNull(this.tableRankingScores.Count2Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetCount2Null() {
-                this[this.tableAnalyticScores.Count2Column] = global::System.Convert.DBNull;
+                this[this.tableRankingScores.Count2Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsCount3Null() {
-                return this.IsNull(this.tableAnalyticScores.Count3Column);
+                return this.IsNull(this.tableRankingScores.Count3Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetCount3Null() {
-                this[this.tableAnalyticScores.Count3Column] = global::System.Convert.DBNull;
+                this[this.tableRankingScores.Count3Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsCount4Null() {
-                return this.IsNull(this.tableAnalyticScores.Count4Column);
+                return this.IsNull(this.tableRankingScores.Count4Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetCount4Null() {
-                this[this.tableAnalyticScores.Count4Column] = global::System.Convert.DBNull;
+                this[this.tableRankingScores.Count4Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsCount5Null() {
-                return this.IsNull(this.tableAnalyticScores.Count5Column);
+                return this.IsNull(this.tableRankingScores.Count5Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetCount5Null() {
-                this[this.tableAnalyticScores.Count5Column] = global::System.Convert.DBNull;
+                this[this.tableRankingScores.Count5Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsCount6Null() {
-                return this.IsNull(this.tableAnalyticScores.Count6Column);
+                return this.IsNull(this.tableRankingScores.Count6Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetCount6Null() {
-                this[this.tableAnalyticScores.Count6Column] = global::System.Convert.DBNull;
+                this[this.tableRankingScores.Count6Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsCount7Null() {
-                return this.IsNull(this.tableAnalyticScores.Count7Column);
+                return this.IsNull(this.tableRankingScores.Count7Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetCount7Null() {
-                this[this.tableAnalyticScores.Count7Column] = global::System.Convert.DBNull;
+                this[this.tableRankingScores.Count7Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsScoreNull() {
-                return this.IsNull(this.tableAnalyticScores.ScoreColumn);
+            public bool IsWeightedNull() {
+                return this.IsNull(this.tableRankingScores.WeightedColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetScoreNull() {
-                this[this.tableAnalyticScores.ScoreColumn] = global::System.Convert.DBNull;
+            public void SetWeightedNull() {
+                this[this.tableRankingScores.WeightedColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsRPsNull() {
+                return this.IsNull(this.tableRankingScores.RPsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetRPsNull() {
+                this[this.tableRankingScores.RPsColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1563,17 +1665,39 @@ namespace FRCScouting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public int Score {
+            public int Weighted {
                 get {
                     try {
-                        return ((int)(this[this.tableMatchScores.ScoreColumn]));
+                        return ((int)(this[this.tableMatchScores.WeightedColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Score\' in table \'MatchScores\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Weighted\' in table \'MatchScores\' is DBNull.", e);
                     }
                 }
                 set {
+                    this[this.tableMatchScores.WeightedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int Score {
+                get {
+                    return ((int)(this[this.tableMatchScores.ScoreColumn]));
+                }
+                set {
                     this[this.tableMatchScores.ScoreColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int RPs {
+                get {
+                    return ((int)(this[this.tableMatchScores.RPsColumn]));
+                }
+                set {
+                    this[this.tableMatchScores.RPsColumn] = value;
                 }
             }
             
@@ -1675,14 +1799,14 @@ namespace FRCScouting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsScoreNull() {
-                return this.IsNull(this.tableMatchScores.ScoreColumn);
+            public bool IsWeightedNull() {
+                return this.IsNull(this.tableMatchScores.WeightedColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetScoreNull() {
-                this[this.tableMatchScores.ScoreColumn] = global::System.Convert.DBNull;
+            public void SetWeightedNull() {
+                this[this.tableMatchScores.WeightedColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1690,22 +1814,22 @@ namespace FRCScouting {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        public class AnalyticScoresRowChangeEvent : global::System.EventArgs {
+        public class RankingScoresRowChangeEvent : global::System.EventArgs {
             
-            private AnalyticScoresRow eventRow;
+            private RankingScoresRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public AnalyticScoresRowChangeEvent(AnalyticScoresRow row, global::System.Data.DataRowAction action) {
+            public RankingScoresRowChangeEvent(RankingScoresRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public AnalyticScoresRow Row {
+            public RankingScoresRow Row {
                 get {
                     return this.eventRow;
                 }

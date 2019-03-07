@@ -8,9 +8,10 @@ namespace FRCScouting
     public class Match
     {
 		public int MatchNumber;
+
         public int[] BlueTeams = new int[3];
         public int[] RedTeams = new int[3];
-        
+
         public Match(int matchNumber)
         {
 			MatchNumber = matchNumber;

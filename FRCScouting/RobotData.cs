@@ -23,29 +23,61 @@ namespace FRCScouting
         public void CreateRandomTestData(List<Match> matchList)
         {
 			Random random = new Random();
+			MatchData matchData;
 			foreach (var match in matchList)
 			{
+				var redTeamWins = random.Next(1) == 1;
 				foreach (var team in match.BlueTeams)
-					MatchDataList.Add(new MatchData(team, match.MatchNumber, "Blue"));
-				foreach (var team in match.RedTeams)
-					MatchDataList.Add(new MatchData(team, match.MatchNumber, "Red"));
-			}
-
-			foreach (var matchData in MatchDataList)
-			{
-				for (int i=0; i<8; i++)
 				{
-					matchData.ScoreArray[i] = random.Next(10);
+					matchData = new MatchData(match.MatchNumber, team, "Blue");
+					for (int i = 0; i < 8; i++)
+						matchData.ScoreArray[i] = random.Next(10);
+					if (!redTeamWins)
+					{
+						matchData.Score = random.Next(100) + 200;
+						matchData.RankingPoints = 1;
+					}
+					else
+					{
+						matchData.Score = random.Next(100) + 100;
+						matchData.RankingPoints = 0;
+					}
+					MatchDataList.Add(matchData);
 				}
-
+				foreach (var team in match.RedTeams)
+				{
+					matchData = new MatchData(match.MatchNumber, team, "Red");
+					for (int i = 0; i < 8; i++)
+						matchData.ScoreArray[i] = random.Next(10);
+					if (redTeamWins)
+					{
+						matchData.Score = random.Next(100) + 200;
+						matchData.RankingPoints = 1;
+					}
+					else
+					{
+						matchData.Score = random.Next(100) + 100;
+						matchData.RankingPoints = 0;
+					}
+					MatchDataList.Add(matchData);
+				}
 			}
+
+			//foreach (var matchData in MatchDataList)
+			//{
+			//	for (int i=0; i<8; i++)
+			//	{
+			//		matchData.ScoreArray[i] = random.Next(10);
+			//	}
+
+			//}
         }
 
         public void SaveData(string dataFile) // Backs up data to text file 
         {
             using (StreamWriter sw = new StreamWriter(dataFile))
             {
-				sw.WriteLine("Match#,Team, Alliance, Count1, Count2, Count3, Count4, Count5, Count6, Count7, Count8");
+				sw.WriteLine("Match#,Team, Alliance, Count1, Count2, Count3, Count4, Count5, Count6, Count7, Count8, Score, RPs");
                 foreach (var matchData in MatchDataList)
                 {
                     sw.Write($"{matchData.MatchNumber},{matchData.TeamNumber},{matchData.Alliance}");
@@ -55,6 +87,7 @@ namespace FRCScouting
                         //Console.Write($"{temp.ScoreArray.ElementAt(j)},");
                         sw.Write($",{matchData.ScoreArray[i]}");
                     }
+					sw.Write($",{matchData.Score},{matchData.RankingPoints}");
                     sw.Write('\n');
                 }
 				sw.Close();
@@ -92,6 +125,8 @@ namespace FRCScouting
 					for (int i = 0; i < 8; i++)
 						newMatchData.ScoreArray[i] = int.Parse(words[i + 3]);
 
+					newMatchData.Score = int.Parse(words[11]);
+					newMatchData.RankingPoints = int.Parse(words[12]);
 					count++;
 
 					MatchDataList.Add(newMatchData);
