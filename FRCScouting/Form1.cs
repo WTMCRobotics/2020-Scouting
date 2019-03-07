@@ -72,15 +72,13 @@ namespace FRCScouting
 			}
 
 			_robotData = new RobotData();
-			//_robotData.CreateRandomTestData(_schedule.MatchList);
-			//_robotData.SaveData($"{WorkingDirectory}{MatchDataFileName}");
 			_robotData.LoadData($"{WorkingDirectory}{MatchDataFileName}");
 
 			cbMatchMode.SelectedIndex = 0;
 
 			_PollingTimer = new Timer();
 			_PollingTimer.Enabled = true;
-			_PollingTimer.Interval = Convert.ToInt16(1000);
+			_PollingTimer.Interval = Convert.ToInt16(250);
 			_PollingTimer.Tick += new EventHandler(PollingEvent);
 
 			_analytics = new Analytics();
@@ -214,7 +212,7 @@ namespace FRCScouting
 				//var data = _robotData.RobotDataList.Where(x => x.MatchNumber == matchNumber && x.Alliance == "Blue" && x.TeamNumber.ToString() == dgvBlue.Columns[i].Name).Select(b => b.ScoreArray[0]).ToString();
 			}
 
-			for (int j = 0; j < _robotData.MatchDataList[0].ScoreArray.Length; j++)
+			for (int j = 0; j < 8; j++)
 			{
 				string temp = "hello";
 
@@ -242,63 +240,47 @@ namespace FRCScouting
             cbMatchMode.SelectedIndex += 1;
         }
         
-        private void btnLoadData_Click(object sender, EventArgs e) 
+        private void btnSaveMatchData_Click(object sender, EventArgs e) 
         {
-            string path = @"C:\Users\Katie\Documents\Robotics\2019-Scouting\FRCScouting"; //UPDATE PATH FOR YOUR OWN COMPUTER
-
-            if (!File.Exists(path))
+            for (int i = 0; i < 3; i++) // LOAD RED
             {
-                using (StreamWriter sw = new StreamWriter(Path.Combine(path, "RobotDataBackUp.txt"), true))
-                {
-                    for (int i = 0; i < 3; i++) // LOAD RED
-                    {
-                        var temp = new MatchData(0,0,"Red");
+                var tempMatchData = new MatchData(0,0,"Red");
 
-                        temp.MatchNumber = getMatchNumber();
+                tempMatchData.MatchNumber = getMatchNumber();
 
-                        temp.TeamNumber = Convert.ToInt32(_schedule.MatchList[getMatchNumber()].RedTeams[i].ToString());
+                tempMatchData.TeamNumber = Convert.ToInt32(_schedule.MatchList[getMatchNumber()].RedTeams[i].ToString());
                  
-                        sw.Write($"{temp.MatchNumber},{temp.TeamNumber},{temp.Alliance},");
 
-                        #region Blue Table
-                        for (int j = 0; j < _robotData.MatchDataList[0].ScoreArray.Length; j++)
-                        {   
-                            temp.ScoreArray[i] = Convert.ToInt32(dgvBlue[i, j].Value);
-                            
-                            sw.Write($"{temp.ScoreArray[i]},");
-                        }
-                        #endregion
-
-                        _robotData.MatchDataList.Add(temp);
-                            sw.Write('\n');
-                    }
-
-                    for (int i = 0; i < 3; i++) // LOAD BLUE
-                    {
-                        var temp = new MatchData(0, 0, "Blue");
-
-                        temp.MatchNumber = getMatchNumber();
-
-                        temp.TeamNumber = Convert.ToInt32(_schedule.MatchList[getMatchNumber()].BlueTeams[i].ToString());
-
-                        sw.Write($"{temp.MatchNumber},{temp.TeamNumber},{temp.Alliance},");
-
-                        #region Blue Table
-                        for (int j = 0; j < _robotData.MatchDataList[0].ScoreArray.Length; j++)
-                        {
-                            temp.ScoreArray[i] = Convert.ToInt32(dgvBlue[i, j].Value);
-
-                            sw.Write($"{temp.ScoreArray[i]},");
-                        }
-                        #endregion
-
-                        _robotData.MatchDataList.Add(temp);
-                        sw.Write('\n');
-                    }
+                #region Blue Table
+                for (int j = 0; j < _robotData.MatchDataList[0].ScoreArray.Length; j++)
+                {   
+                    tempMatchData.ScoreArray[i] = Convert.ToInt32(dgvBlue[i, j].Value);
                 }
+                #endregion
+
+                _robotData.MatchDataList.Add(tempMatchData);
+                           
+            }
+
+            for (int i = 0; i < 3; i++) // LOAD BLUE
+            {
+                var temp = new MatchData(0, 0, "Blue");
+
+                temp.MatchNumber = getMatchNumber();
+
+                temp.TeamNumber = Convert.ToInt32(_schedule.MatchList[getMatchNumber()].BlueTeams[i].ToString());
+                
+                #region Blue Table
+                for (int j = 0; j < _robotData.MatchDataList[0].ScoreArray.Length; j++)
+                {
+                    temp.ScoreArray[i] = Convert.ToInt32(dgvBlue[i, j].Value);
+                }
+                #endregion
+
+                _robotData.MatchDataList.Add(temp);
             }
             //Change button color to signal that data has been loaded
-            btnLoadData.BackColor = Color.Green;
+            btnSaveData.BackColor = Color.Green;
         }
 
 		private void cbTeam_SelectedIndexChanged(object sender, EventArgs e)
@@ -326,6 +308,23 @@ namespace FRCScouting
 		{
 
 		}
-	}
+
+        private void resetMatchDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var mbResult =  MessageBox.Show("Are you sure you want to reset all the data in MatchFile.csv?",
+                            "FRCScouting",
+                            MessageBoxButtons.OKCancel);
+            if (mbResult == DialogResult.Cancel)
+                return;
+
+            _robotData.MatchDataList.Clear();
+            _robotData.SaveData($"{WorkingDirectory}{MatchDataFileName}");
+        }
+
+        private void btnLoadMatchData_Click(object sender, EventArgs e)
+        {
+            _robotData.LoadData($"{WorkingDirectory}{MatchDataFileName}");
+        }
+    }
 
 }
