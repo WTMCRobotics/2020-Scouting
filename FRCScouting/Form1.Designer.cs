@@ -37,6 +37,7 @@
             this.dgvRed = new System.Windows.Forms.DataGridView();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageMatch = new System.Windows.Forms.TabPage();
+            this.btnLoadMatchData = new System.Windows.Forms.Button();
             this.udRedRPs = new System.Windows.Forms.NumericUpDown();
             this.udRedScore = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
@@ -60,7 +61,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tsFileReset = new System.Windows.Forms.ToolStripMenuItem();
             this.resetMatchDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnLoadMatchData = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.UpDownMatch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBlue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRed)).BeginInit();
@@ -97,7 +97,7 @@
             this.lblRed.AutoSize = true;
             this.lblRed.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRed.ForeColor = System.Drawing.Color.Red;
-            this.lblRed.Location = new System.Drawing.Point(1117, 320);
+            this.lblRed.Location = new System.Drawing.Point(1958, 320);
             this.lblRed.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblRed.Name = "lblRed";
             this.lblRed.Size = new System.Drawing.Size(331, 61);
@@ -107,7 +107,7 @@
             // UpDownMatch
             // 
             this.UpDownMatch.Location = new System.Drawing.Point(184, 43);
-            this.UpDownMatch.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.UpDownMatch.Margin = new System.Windows.Forms.Padding(5);
             this.UpDownMatch.Maximum = new decimal(new int[] {
             80,
             0,
@@ -132,7 +132,7 @@
             // 
             this.btn1NextMatch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn1NextMatch.Location = new System.Drawing.Point(1896, 67);
-            this.btn1NextMatch.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btn1NextMatch.Margin = new System.Windows.Forms.Padding(5);
             this.btn1NextMatch.Name = "btn1NextMatch";
             this.btn1NextMatch.Size = new System.Drawing.Size(240, 69);
             this.btn1NextMatch.TabIndex = 9;
@@ -142,7 +142,7 @@
             // tbMatchNumber
             // 
             this.tbMatchNumber.Location = new System.Drawing.Point(13, 43);
-            this.tbMatchNumber.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.tbMatchNumber.Margin = new System.Windows.Forms.Padding(5);
             this.tbMatchNumber.Name = "tbMatchNumber";
             this.tbMatchNumber.Size = new System.Drawing.Size(153, 38);
             this.tbMatchNumber.TabIndex = 10;
@@ -155,11 +155,12 @@
             this.dgvBlue.AllowUserToResizeRows = false;
             this.dgvBlue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvBlue.Location = new System.Drawing.Point(29, 403);
-            this.dgvBlue.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.dgvBlue.Margin = new System.Windows.Forms.Padding(5);
             this.dgvBlue.Name = "dgvBlue";
             this.dgvBlue.ReadOnly = true;
             this.dgvBlue.RowTemplate.Height = 40;
-            this.dgvBlue.Size = new System.Drawing.Size(861, 641);
+            this.dgvBlue.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.dgvBlue.Size = new System.Drawing.Size(1221, 1290);
             this.dgvBlue.TabIndex = 11;
             // 
             // dgvRed
@@ -170,12 +171,13 @@
             this.dgvRed.AllowUserToResizeRows = false;
             this.dgvRed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvRed.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRed.Location = new System.Drawing.Point(1136, 403);
-            this.dgvRed.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.dgvRed.Location = new System.Drawing.Point(1600, 403);
+            this.dgvRed.Margin = new System.Windows.Forms.Padding(5);
             this.dgvRed.Name = "dgvRed";
             this.dgvRed.ReadOnly = true;
             this.dgvRed.RowTemplate.Height = 40;
-            this.dgvRed.Size = new System.Drawing.Size(861, 641);
+            this.dgvRed.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.dgvRed.Size = new System.Drawing.Size(1230, 1290);
             this.dgvRed.TabIndex = 12;
             // 
             // tabControl
@@ -185,10 +187,10 @@
             this.tabControl.Controls.Add(this.tabPerformance);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 49);
-            this.tabControl.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(5);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(2040, 1222);
+            this.tabControl.Size = new System.Drawing.Size(2881, 1782);
             this.tabControl.TabIndex = 13;
             // 
             // tabPageMatch
@@ -210,18 +212,28 @@
             this.tabPageMatch.Controls.Add(this.lblRed);
             this.tabPageMatch.Controls.Add(this.lblBlue);
             this.tabPageMatch.Location = new System.Drawing.Point(10, 48);
-            this.tabPageMatch.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.tabPageMatch.Margin = new System.Windows.Forms.Padding(5);
             this.tabPageMatch.Name = "tabPageMatch";
-            this.tabPageMatch.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.tabPageMatch.Size = new System.Drawing.Size(2020, 1164);
+            this.tabPageMatch.Padding = new System.Windows.Forms.Padding(5);
+            this.tabPageMatch.Size = new System.Drawing.Size(2861, 1724);
             this.tabPageMatch.TabIndex = 1;
             this.tabPageMatch.Text = "Match";
             this.tabPageMatch.UseVisualStyleBackColor = true;
             // 
+            // btnLoadMatchData
+            // 
+            this.btnLoadMatchData.Location = new System.Drawing.Point(573, 46);
+            this.btnLoadMatchData.Name = "btnLoadMatchData";
+            this.btnLoadMatchData.Size = new System.Drawing.Size(189, 73);
+            this.btnLoadMatchData.TabIndex = 36;
+            this.btnLoadMatchData.Text = "Load";
+            this.btnLoadMatchData.UseVisualStyleBackColor = true;
+            this.btnLoadMatchData.Click += new System.EventHandler(this.btnLoadMatchData_Click);
+            // 
             // udRedRPs
             // 
             this.udRedRPs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.udRedRPs.Location = new System.Drawing.Point(1840, 343);
+            this.udRedRPs.Location = new System.Drawing.Point(2681, 343);
             this.udRedRPs.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.udRedRPs.Maximum = new decimal(new int[] {
             2,
@@ -236,7 +248,7 @@
             // udRedScore
             // 
             this.udRedScore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.udRedScore.Location = new System.Drawing.Point(1619, 343);
+            this.udRedScore.Location = new System.Drawing.Point(2460, 343);
             this.udRedScore.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.udRedScore.Maximum = new decimal(new int[] {
             999,
@@ -252,7 +264,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1832, 305);
+            this.label3.Location = new System.Drawing.Point(2673, 305);
             this.label3.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 32);
@@ -263,7 +275,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(1611, 305);
+            this.label5.Location = new System.Drawing.Point(2452, 305);
             this.label5.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(89, 32);
@@ -341,6 +353,7 @@
             this.btnNextMatch.TabIndex = 11;
             this.btnNextMatch.Text = "Next";
             this.btnNextMatch.UseVisualStyleBackColor = true;
+            this.btnNextMatch.Click += new System.EventHandler(this.btnNextMatch_Click);
             // 
             // gbMatchMode
             // 
@@ -400,7 +413,7 @@
             this.tabRankings.Location = new System.Drawing.Point(10, 48);
             this.tabRankings.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.tabRankings.Name = "tabRankings";
-            this.tabRankings.Size = new System.Drawing.Size(2020, 1213);
+            this.tabRankings.Size = new System.Drawing.Size(2020, 1164);
             this.tabRankings.TabIndex = 2;
             this.tabRankings.Text = "Team Rankings";
             this.tabRankings.UseVisualStyleBackColor = true;
@@ -413,7 +426,7 @@
             this.dataGridRankings.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.dataGridRankings.Name = "dataGridRankings";
             this.dataGridRankings.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dataGridRankings.Size = new System.Drawing.Size(2020, 1213);
+            this.dataGridRankings.Size = new System.Drawing.Size(2020, 1164);
             this.dataGridRankings.TabIndex = 0;
             // 
             // tabPerformance
@@ -424,7 +437,7 @@
             this.tabPerformance.Location = new System.Drawing.Point(10, 48);
             this.tabPerformance.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.tabPerformance.Name = "tabPerformance";
-            this.tabPerformance.Size = new System.Drawing.Size(2020, 1213);
+            this.tabPerformance.Size = new System.Drawing.Size(2020, 1164);
             this.tabPerformance.TabIndex = 3;
             this.tabPerformance.Text = "Team Performance";
             this.tabPerformance.UseVisualStyleBackColor = true;
@@ -457,7 +470,7 @@
             this.dataGridPerformance.AllowUserToResizeRows = false;
             this.dataGridPerformance.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridPerformance.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dataGridPerformance.Location = new System.Drawing.Point(0, 97);
+            this.dataGridPerformance.Location = new System.Drawing.Point(0, 48);
             this.dataGridPerformance.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.dataGridPerformance.Name = "dataGridPerformance";
             this.dataGridPerformance.ReadOnly = true;
@@ -472,7 +485,7 @@
             this.tsFileReset});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(2040, 49);
+            this.menuStrip1.Size = new System.Drawing.Size(2881, 49);
             this.menuStrip1.TabIndex = 14;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -487,31 +500,21 @@
             // resetMatchDataToolStripMenuItem
             // 
             this.resetMatchDataToolStripMenuItem.Name = "resetMatchDataToolStripMenuItem";
-            this.resetMatchDataToolStripMenuItem.Size = new System.Drawing.Size(396, 46);
+            this.resetMatchDataToolStripMenuItem.Size = new System.Drawing.Size(356, 46);
             this.resetMatchDataToolStripMenuItem.Text = "Reset MatchData";
             this.resetMatchDataToolStripMenuItem.Click += new System.EventHandler(this.resetMatchDataToolStripMenuItem_Click);
-            // 
-            // btnLoadMatchData
-            // 
-            this.btnLoadMatchData.Location = new System.Drawing.Point(573, 46);
-            this.btnLoadMatchData.Name = "btnLoadMatchData";
-            this.btnLoadMatchData.Size = new System.Drawing.Size(189, 73);
-            this.btnLoadMatchData.TabIndex = 36;
-            this.btnLoadMatchData.Text = "Load";
-            this.btnLoadMatchData.UseVisualStyleBackColor = true;
-            this.btnLoadMatchData.Click += new System.EventHandler(this.btnLoadMatchData_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.ClientSize = new System.Drawing.Size(2040, 1271);
+            this.ClientSize = new System.Drawing.Size(2881, 1831);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.btn1NextMatch);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Match View";
