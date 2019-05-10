@@ -377,6 +377,7 @@
             "Waiting",
             "Auton",
             "Teleop",
+            "Edit",
             "Done"});
             this.cbMatchMode.Location = new System.Drawing.Point(16, 45);
             this.cbMatchMode.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
@@ -413,7 +414,7 @@
             this.tabRankings.Location = new System.Drawing.Point(10, 48);
             this.tabRankings.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.tabRankings.Name = "tabRankings";
-            this.tabRankings.Size = new System.Drawing.Size(2020, 1164);
+            this.tabRankings.Size = new System.Drawing.Size(2861, 1724);
             this.tabRankings.TabIndex = 2;
             this.tabRankings.Text = "Team Rankings";
             this.tabRankings.UseVisualStyleBackColor = true;
@@ -426,7 +427,7 @@
             this.dataGridRankings.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.dataGridRankings.Name = "dataGridRankings";
             this.dataGridRankings.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dataGridRankings.Size = new System.Drawing.Size(2020, 1164);
+            this.dataGridRankings.Size = new System.Drawing.Size(2861, 1724);
             this.dataGridRankings.TabIndex = 0;
             // 
             // tabPerformance
@@ -437,7 +438,7 @@
             this.tabPerformance.Location = new System.Drawing.Point(10, 48);
             this.tabPerformance.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.tabPerformance.Name = "tabPerformance";
-            this.tabPerformance.Size = new System.Drawing.Size(2020, 1164);
+            this.tabPerformance.Size = new System.Drawing.Size(2861, 1724);
             this.tabPerformance.TabIndex = 3;
             this.tabPerformance.Text = "Team Performance";
             this.tabPerformance.UseVisualStyleBackColor = true;
@@ -470,12 +471,12 @@
             this.dataGridPerformance.AllowUserToResizeRows = false;
             this.dataGridPerformance.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridPerformance.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dataGridPerformance.Location = new System.Drawing.Point(0, 48);
+            this.dataGridPerformance.Location = new System.Drawing.Point(0, 608);
             this.dataGridPerformance.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.dataGridPerformance.Name = "dataGridPerformance";
             this.dataGridPerformance.ReadOnly = true;
             this.dataGridPerformance.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dataGridPerformance.Size = new System.Drawing.Size(2020, 1116);
+            this.dataGridPerformance.Size = new System.Drawing.Size(2861, 1116);
             this.dataGridPerformance.TabIndex = 1;
             // 
             // menuStrip1

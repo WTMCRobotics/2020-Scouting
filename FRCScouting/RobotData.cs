@@ -20,7 +20,7 @@ namespace FRCScouting
         {
 		}
         
-        public void CreateRandomTestData(List<Match> matchList)
+        public void CreateRandomTestData(List<Match> matchList) // For testing
         {
 			Random random = new Random();
 			MatchData matchData;
@@ -73,29 +73,29 @@ namespace FRCScouting
 			//}
         }
 
-        public void SaveData(string dataFile) // Backs up data to text file 
+        public void SaveData(string dataFile, int matchNumber) // Backs up data to text file 
         {
             using (StreamWriter sw = new StreamWriter(dataFile))
             {
+                
 				sw.WriteLine("Match#,Team, Alliance, Count1, Count2, Count3, Count4, Count5, Count6, Count7, Count8, Score, RPs");
-                foreach (var matchData in MatchDataList)
+                foreach (var matchData in MatchDataList) //TODO: Rework this loop
                 {
                     sw.Write($"{matchData.MatchNumber},{matchData.TeamNumber},{matchData.Alliance}");
 
                     for (int i = 0; i < 8; i++)
                     {
-                        //Console.Write($"{temp.ScoreArray.ElementAt(j)},");
                         sw.Write($",{matchData.ScoreArray[i]}");
                     }
 					sw.Write($",{matchData.Score},{matchData.RankingPoints}");
                     sw.Write('\n');
                 }
 				sw.Close();
+                
             }
         }
         
-        //TODO: Check that RetrieveData works because Madeline says it doesn't
-        public bool LoadData(string dataFile) // Retrieves data from RobotDataBackUp.txt
+        public bool LoadData(string dataFile) // Retrieves data from .csv file
         {
 			if (!File.Exists(dataFile))
 			{
@@ -105,7 +105,7 @@ namespace FRCScouting
 				return false;
 			}
 
-			using (var file = new StreamReader(dataFile)) //Need to write an exception for if file is not found
+			using (var file = new StreamReader(dataFile))
 			{
 				string line = "";
 				int count = 1;

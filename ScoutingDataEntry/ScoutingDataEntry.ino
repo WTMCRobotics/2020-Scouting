@@ -24,7 +24,7 @@
 #define NUMBER_OF_BUTTONS 8
 #define DEBOUNCE_LENGTH  14
 
-char version[]  = "v0.5";
+char version[]  = "v0.6.1";
 
 // LED Commands
 enum
@@ -42,7 +42,8 @@ enum
 	matchWait	= 1,
 	matchAuton	= 2,
 	matchTeleop	= 3,
-	matchDone	= 4
+	matchDone	= 4,
+	matchEdit   = 5
 };
 
 bool _bFlashLED = false;
@@ -53,6 +54,7 @@ byte _switchData;
 char _responseBuffer[64];
 byte _autonCount[NUMBER_OF_BUTTONS];
 byte _teleopCount[NUMBER_OF_BUTTONS];
+byte _editCount[NUMBER_OF_BUTTONS];
 
 
 void setup()
@@ -131,6 +133,10 @@ void ProcessSerialCommands()
 			SetLED(ledOff);
 			_matchMode = matchTeleop;
 			break;
+		case 'E':
+			SetLED(ledOn);
+			_matchMode = matchEdit;
+			break;
 		case 'D':	// end of match
 			SetLED(ledOff);
 			_matchMode = matchDone;
@@ -149,6 +155,7 @@ void ProcessSerialCommands()
 		case 'B': buffer = GetByteResponse(_buttons);		break;
 		case 'A': buffer = GetCountResponse(_autonCount);	break;
 		case 'T': buffer = GetCountResponse(_teleopCount);	break;
+		case 'E': buffer = GetCountResponse(_editCount);    break;
 		}
 		Serial.println(buffer);
 		break;
@@ -230,6 +237,8 @@ void PollButtons()
 				_autonCount[i]++;
 			else if (_matchMode == matchTeleop)
 				_teleopCount[i]++;
+      else if (_matchMode == matchEdit)
+        _editCount[i]++;
 			digitalWrite(13, HIGH);
 			delay(10);
 			digitalWrite(13, LOW);
@@ -294,6 +303,7 @@ char* GetModeResponse()
 		case matchAuton:	return "Auton";		break;
 		case matchTeleop:	return "Teleop";	break;
 		case matchDone:		return "Done";		break;
+		case matchEdit:     return "Edit";      break;
 	}
 	return "\0";
 }

@@ -87,7 +87,7 @@ namespace FRCScouting
 			InitializeRankingsTab();
 			InitializeTeamTab();
             
-			setTeam(0);
+            setTeam(0);
 		}
 
 		private void InitializeRankingsTab()
@@ -118,11 +118,17 @@ namespace FRCScouting
 				dataGridPerformance.Columns[i].Width = 55;
 		}
 
+        private int NegativeWraparound(int num, int max)
+        {
+            if (num >= 0) return num;
+            else return NegativeWraparound(num + max, max);
+        }
+
 		private void PollingEvent(Object myObject, EventArgs myEventArgs)
         {
 
 			if (_dataCollector.Mode != MatchMode.Auton && 
-				_dataCollector.Mode != MatchMode.Teleop)
+				_dataCollector.Mode != MatchMode.Teleop && _dataCollector.Mode != MatchMode.Edit)
 				return;
 
 			_PollingTimer.Enabled = false;
@@ -160,16 +166,19 @@ namespace FRCScouting
 
                     int buttonCount = 0;
 
-                    if (countIndex == 5 || countIndex == 6)
-
+                    if (countIndex == 5 || countIndex == 6) //For Middle Buttons which work in both modes
                     {
                         buttonCount = controller.AutonCounts[buttonID] + controller.TeleopCounts[buttonID];
+                        if (_dataCollector.Mode == MatchMode.Edit)
+                        {
+                            buttonCount -= controller.EditCounts[buttonID & 0x0f];
+                            buttonCount = NegativeWraparound(buttonCount, 10);
+                        }
 
                         dataGrid[colIndex, countIndex].Value = buttonCount;
                     }
 
                     else if (_dataCollector.Mode == MatchMode.Auton)
-
                     {
 
                         if (buttonID < 0x10)
@@ -181,6 +190,27 @@ namespace FRCScouting
 
                         }
                     }
+                    
+                    
+                    else if(_dataCollector.Mode == MatchMode.Edit)
+                    {
+                        if (buttonID < 0x10)
+
+                        {
+                            buttonCount = NegativeWraparound(controller.AutonCounts[buttonID] - controller.EditCounts[buttonID], 5);
+
+                            dataGrid[colIndex, countIndex].Value = buttonCount;
+                        }
+
+                        if (buttonID >= 0x10)
+
+                        {
+                            buttonCount = NegativeWraparound(controller.TeleopCounts[buttonID & 0x0f] - controller.EditCounts[buttonID & 0x0f], 12);
+                            dataGrid[colIndex, countIndex].Value = buttonCount;
+
+                        }
+                    }
+                    
 
                     else
 
@@ -204,21 +234,19 @@ namespace FRCScouting
 
         private void UpDownMatch_ValueChanged(object sender, EventArgs e)
         {
-            int matchNumber = (int)(UpDownMatch.Value - 1);
-            
-            setTeam(matchNumber);
+            setTeam(getMatchNumber());
         }
 
         private int getMatchNumber()
         {
-            return (Convert.ToInt32(UpDownMatch.Value));
+            return (Convert.ToInt32(UpDownMatch.Value) -1);
         }
 
         private void setTeam(int matchNumber)
         {
 			SetupMatchGrids(dgvBlue, _schedule.MatchList[matchNumber].BlueTeams);
 			SetupMatchGrids(dgvRed, _schedule.MatchList[matchNumber].RedTeams);
-		}
+        }
 
 		private void SetupMatchGrids(DataGridView grid, int[] teamID)
 		{
@@ -232,7 +260,7 @@ namespace FRCScouting
 
 			for (int j = 0; j < 8; j++)
 			{
-				string temp = "hello";
+				string temp = "0";
 
 				grid.Rows.Add(new string[3]
 				{
@@ -264,7 +292,7 @@ namespace FRCScouting
             {
                 var tempMatchData = new MatchData(0,0,"Red");
 
-                tempMatchData.MatchNumber = getMatchNumber();
+                tempMatchData.MatchNumber = getMatchNumber() + 1;
 
                 tempMatchData.TeamNumber = Convert.ToInt32(_schedule.MatchList[getMatchNumber()].RedTeams[i].ToString());
                  
@@ -272,7 +300,7 @@ namespace FRCScouting
                 #region Blue Table
                 for (int j = 0; j < 8; j++)
                 {   
-                    tempMatchData.ScoreArray[i] = Convert.ToInt32(dgvBlue[i, j].Value);
+                    tempMatchData.ScoreArray[j] = Convert.ToInt32(dgvBlue[i, j].Value);
                 }
                 #endregion
 
@@ -283,14 +311,14 @@ namespace FRCScouting
             {
                 var temp = new MatchData(0, 0, "Blue");
 
-                temp.MatchNumber = getMatchNumber();
+                temp.MatchNumber = getMatchNumber() + 1;
 
                 temp.TeamNumber = Convert.ToInt32(_schedule.MatchList[getMatchNumber()].BlueTeams[i].ToString());
                 
                 #region Blue Table
                 for (int j = 0; j < 8; j++)
                 {
-                    temp.ScoreArray[i] = Convert.ToInt32(dgvBlue[i, j].Value);
+                    temp.ScoreArray[j] = Convert.ToInt32(dgvBlue[i, j].Value);
                 }
                 #endregion
 
@@ -298,7 +326,7 @@ namespace FRCScouting
             }
             //Change button color to signal that data has been loaded
             btnSaveData.BackColor = Color.Green;
-            _robotData.SaveData($"{WorkingDirectory}{MatchDataFileName}");
+            _robotData.SaveData($"{WorkingDirectory}{MatchDataFileName}", (getMatchNumber() + 1));
         }
 
 		private void cbTeam_SelectedIndexChanged(object sender, EventArgs e)
@@ -336,7 +364,7 @@ namespace FRCScouting
                 return;
 
             _robotData.MatchDataList.Clear();
-            _robotData.SaveData($"{WorkingDirectory}{MatchDataFileName}");
+            _robotData.SaveData($"{WorkingDirectory}{MatchDataFileName}", (getMatchNumber() + 1));
         }
 
         private void btnLoadMatchData_Click(object sender, EventArgs e)
@@ -348,9 +376,16 @@ namespace FRCScouting
         {
             btnSaveData.BackColor = Color.Beige;
             UpDownMatch.Value++;
-            //Need to reset Mode and have it display change
-            //_dataCollector.SetMode(MatchMode.Reset);
+          
+            cbMatchMode.SelectedIndex = 0;
+            _dataCollector.SetMode(MatchMode.Reset);
+            
             setTeam(getMatchNumber());
+        }
+
+        private void dgvBlue_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 

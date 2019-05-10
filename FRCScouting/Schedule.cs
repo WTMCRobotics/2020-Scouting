@@ -28,7 +28,7 @@ namespace FRCScouting
 			{
 				string line = "";
 				int lineNumber = 0;
-				while ((matchNumber <= 80) && (line = file.ReadLine()) != null) // Reads through the full file line by line
+				while ((matchNumber <= 82) && (line = file.ReadLine()) != null) // Reads through the full file line by line
 				{
 					lineNumber++;
 
@@ -68,7 +68,7 @@ namespace FRCScouting
 											 // Console.WriteLine("Run " + count); //For testing
 					matchNumber++;
 				}
-				if (matchList.Count != 80)
+				if (matchList.Count != 82)
 				{
 					MessageBox.Show($"Only {matchList.Count} matches. Closing program!",
 									"FRC Scouting Program",

@@ -13,12 +13,13 @@ namespace Scouting.DataCollector
 		Waiting,
 		Auton,
 		Teleop,
+        Edit,
 		Done
 	};
 
 	public class DataEntryController
 	{
-		private const string kLatestVersion = "v0.5";
+		private const string kLatestVersion = "v0.6.1";
 
 		public enum Status
 		{
@@ -45,8 +46,11 @@ namespace Scouting.DataCollector
 			LEDOn,
 			LEDOff,
 			LEDToggle,
-			LEDFlash
-		};
+			LEDFlash,
+
+            ModeEdit,
+            ReadEdit
+        };
 
 		private SerialPort _port;
 		private static readonly List<string> _command;
@@ -65,6 +69,7 @@ namespace Scouting.DataCollector
 
 		public byte[] AutonCounts { get; private set; }
 		public byte[] TeleopCounts { get; private set; }
+		public byte[] EditCounts { get; private set; }
         public byte[] TotalCounts { get; private set; }
 
         // static constructor to create controller command arrays
@@ -74,7 +79,7 @@ namespace Scouting.DataCollector
 			{
 				"MR", "MW", "MA", "MT", "MD",
 				"RV", "RS", "RM", "RB", "RA", "RT",
-				"L0", "L1", "LT", "LF",
+				"L0", "L1", "LT", "LF","ME","RE"
 			};
 		}
 		
@@ -88,6 +93,7 @@ namespace Scouting.DataCollector
 			
 			AutonCounts = new byte[8];
             TeleopCounts = new byte[8];
+            EditCounts = new byte[8];
             TotalCounts = new byte[8];
             Mode = MatchMode.Reset;
 
@@ -116,6 +122,7 @@ namespace Scouting.DataCollector
 				case MatchMode.Waiting: 	CommandController(Command.ModeWaiting); break;
 				case MatchMode.Auton:	CommandController(Command.ModeAuton); break;
 				case MatchMode.Teleop:	CommandController(Command.ModeTeleop); break;
+                case MatchMode.Edit:    CommandController(Command.ModeEdit); break;
 				case MatchMode.Done:		CommandController(Command.ModeDone); break;
 			}
 			Mode = mode;
@@ -124,13 +131,13 @@ namespace Scouting.DataCollector
 		private void CommandController(Command cmd)
 		{
 			_port.Write(_command[(int)cmd].ToCharArray(), 0, 2);
-		}
+        }
 
 		private bool QueryController(Command cmd, out string response)
 		{
 			try
 			{
-				_port.Write(_command[(int)cmd].ToCharArray(), 0, 2);
+				_port.Write(_command[(int)cmd].ToCharArray(), 0, 2); 
 				response = _port.ReadLine().TrimEnd('\r');
 			}
 			catch (TimeoutException)
@@ -147,7 +154,8 @@ namespace Scouting.DataCollector
 			PollCounts();
             for (var i= 0; i < 8; i++)
             {
-                TotalCounts[i] = (byte)(AutonCounts[i] + TeleopCounts[i]);
+                //TotalCounts[i] = (byte)(AutonCounts[i] + TeleopCounts[i]);
+                TotalCounts[i] = (byte)(AutonCounts[i] + TeleopCounts[i] + EditCounts[i]);
             }
 		}
 
@@ -181,8 +189,12 @@ namespace Scouting.DataCollector
 			if (!QueryController(Command.ReadTeleop, out string csTeleopCounts) || csAutonCounts.Length != 23)
 				return;
 
-			UpdateCounts(csAutonCounts, AutonCounts);
+            if (!QueryController(Command.ReadEdit, out string csEditCounts) || csAutonCounts.Length != 23)
+                return;
+
+            UpdateCounts(csAutonCounts, AutonCounts);
 			UpdateCounts(csTeleopCounts, TeleopCounts);
+            UpdateCounts(csEditCounts, EditCounts);
 
 			return;
 		}
