@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace FRCScouting
 {
-    public class Schedule //Schedule is within the Match class so it can access the private arrays
+    public class Schedule 
     {
 
         private List<Match> matchList = new List<Match>(); //Array that holds 80 qualifying Match objects

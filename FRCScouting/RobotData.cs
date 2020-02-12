@@ -10,19 +10,24 @@ namespace FRCScouting
 {
     public class RobotData
     {
-        public List<MatchData> MatchDataList = new List<MatchData>();
-
+        public List<MatchData> MatchDataList;
+        public int LastSavedIndex;
 		public RobotData()
 		{
+            MatchDataList = new List<MatchData>();
+            LastSavedIndex = 1;
 		}
 
+        //TODO: this
 		public RobotData(List<Match> matchList)
         {
+            LastSavedIndex = 1;
+            MatchDataList = matchList;
 		}
         
         public void CreateRandomTestData(List<Match> matchList) // For testing
         {
-			Random random = new Random();
+			var random = new Random();
 			MatchData matchData;
 			foreach (var match in matchList)
 			{
@@ -79,17 +84,28 @@ namespace FRCScouting
             {
                 
 				sw.WriteLine("Match#,Team, Alliance, Count1, Count2, Count3, Count4, Count5, Count6, Count7, Count8, Score, RPs");
-                foreach (var matchData in MatchDataList) //TODO: Rework this loop
-                {
-                    sw.Write($"{matchData.MatchNumber},{matchData.TeamNumber},{matchData.Alliance}");
+     //           foreach (var matchData in MatchDataList) //TODO: Rework this loop
+     //           {
+     //               sw.Write($"{matchData.MatchNumber},{matchData.TeamNumber},{matchData.Alliance}");
 
-                    for (int i = 0; i < 8; i++)
+     //               for (int i = 0; i < 8; i++)
+     //               {
+     //                   sw.Write($",{matchData.ScoreArray[i]}");
+     //               }
+					//sw.Write($",{matchData.Score},{matchData.RankingPoints}");
+     //               sw.Write('\n');
+     //           }
+                for (var i = LastSavedIndex; i < MatchDataList.Count; i++){
+                    sw.Write($"{MatchDataList[i].MatchNumber},{MatchDataList[i].TeamNumber},{MatchDataList[i].Alliance}");
+
+                    for (int j = 0; j < 8; j++)
                     {
-                        sw.Write($",{matchData.ScoreArray[i]}");
+                        sw.Write($",{MatchDataList[i].ScoreArray[i]}");
                     }
-					sw.Write($",{matchData.Score},{matchData.RankingPoints}");
+                    sw.Write($",{MatchDataList[i].Score},{MatchDataList[i].RankingPoints}");
                     sw.Write('\n');
                 }
+                LastSavedIndex = MatchDataList.Count;
 				sw.Close();
                 
             }
@@ -107,8 +123,8 @@ namespace FRCScouting
 
 			using (var file = new StreamReader(dataFile))
 			{
-				string line = "";
-				int count = 1;
+				var line = "";
+				var count = 1;
 
 				// skip header line
 				file.ReadLine();
@@ -122,10 +138,11 @@ namespace FRCScouting
 					var alliance	= words[2];
 					var newMatchData = new MatchData(matchNumber, teamNumber, alliance);
 
-					for (int i = 0; i < 8; i++)
-						newMatchData.ScoreArray[i] = int.Parse(words[i + 3]);
+					for (int i = 0; i < 8; i++){
+                        newMatchData.ScoreArray[i] = int.Parse(words[i + 3]);
+                    }
 
-					newMatchData.Score = int.Parse(words[11]);
+                    newMatchData.Score = int.Parse(words[11]);
 					newMatchData.RankingPoints = int.Parse(words[12]);
 					count++;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FRCScouting
+namespace FRCScouting //I'm pretty sure I didn't end up using this
 {
     class ScoutVariables //The variables we're scouting for. This changes every year so will need to come up with a way to do this dynamically
     {
