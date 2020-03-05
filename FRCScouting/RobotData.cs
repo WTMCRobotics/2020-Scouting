@@ -15,14 +15,14 @@ namespace FRCScouting
 		public RobotData()
 		{
             MatchDataList = new List<MatchData>();
-            LastSavedIndex = 1;
+            LastSavedIndex = 0;
 		}
 
         //TODO: this
 		public RobotData(List<Match> matchList)
         {
-            LastSavedIndex = 1;
-            MatchDataList = matchList;
+            LastSavedIndex = 0;
+            //MatchDataList = matchList;
 		}
         
         public void CreateRandomTestData(List<Match> matchList) // For testing
@@ -80,27 +80,34 @@ namespace FRCScouting
 
         public void SaveData(string dataFile, int matchNumber) // Backs up data to text file 
         {
-            using (StreamWriter sw = new StreamWriter(dataFile))
+            using (StreamWriter sw = new StreamWriter(dataFile, true)) // passing true makes it append rather than overwrite
             {
                 
-				sw.WriteLine("Match#,Team, Alliance, Count1, Count2, Count3, Count4, Count5, Count6, Count7, Count8, Score, RPs");
-     //           foreach (var matchData in MatchDataList) //TODO: Rework this loop
-     //           {
-     //               sw.Write($"{matchData.MatchNumber},{matchData.TeamNumber},{matchData.Alliance}");
+				sw.WriteLine("Match#,Team, Alliance, Count1, Count2, Count3, Count4, Count5, Count6, Count7, Count8, Score, RPs"); //TODO: Make this line print once for the entire file, not be appended every single time it's saved
+                /*
+                foreach (var matchData in MatchDataList) //TODO: Rework this loop
+                {
+                    sw.Write($"{matchData.MatchNumber},{matchData.TeamNumber},{matchData.Alliance}");
 
-     //               for (int i = 0; i < 8; i++)
-     //               {
-     //                   sw.Write($",{matchData.ScoreArray[i]}");
-     //               }
-					//sw.Write($",{matchData.Score},{matchData.RankingPoints}");
-     //               sw.Write('\n');
-     //           }
-                for (var i = LastSavedIndex; i < MatchDataList.Count; i++){
+                  for (int i = 0; i < 8; i++)
+                    {
+                        sw.Write($",{matchData.ScoreArray[i]}");
+                    }
+					sw.Write($",{matchData.Score},{matchData.RankingPoints}");
+                    sw.Write('\n');
+                }
+            */
+            
+                for (var i = LastSavedIndex; i < MatchDataList.Count; i++) //TODO: Test that this works after loading and restarting program... I have a feeling the index will be reset.....
+                {
+                    var testVar = i;
                     sw.Write($"{MatchDataList[i].MatchNumber},{MatchDataList[i].TeamNumber},{MatchDataList[i].Alliance}");
+                    Console.WriteLine($"{MatchDataList[i].MatchNumber},{MatchDataList[i].TeamNumber},{MatchDataList[i].Alliance}");
 
                     for (int j = 0; j < 8; j++)
                     {
-                        sw.Write($",{MatchDataList[i].ScoreArray[i]}");
+                        sw.Write($",{MatchDataList[i].ScoreArray[j]}"); 
+                        Console.WriteLine($",{MatchDataList[i].ScoreArray[j]}");
                     }
                     sw.Write($",{MatchDataList[i].Score},{MatchDataList[i].RankingPoints}");
                     sw.Write('\n');
@@ -133,7 +140,14 @@ namespace FRCScouting
 				while ((line = file.ReadLine()) != null) 
 				{
 					var words = line.Split(',');
-					var matchNumber	= int.Parse(words[0]);
+                    var index = 0;
+                    foreach (var word in words)
+                    {
+                        //System.Console.WriteLine($"<{word}>");
+                        index++;
+                    }
+                   
+                    var matchNumber	= int.Parse(words[0]);
 					var teamNumber	= int.Parse(words[1]);
 					var alliance	= words[2];
 					var newMatchData = new MatchData(matchNumber, teamNumber, alliance);
