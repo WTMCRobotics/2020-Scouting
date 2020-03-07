@@ -1,30 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.IO;
-
 using Scouting.DataCollector;
 
 namespace FRCScouting
 {
-	public partial class Form1 : Form
+	public partial class FRCMatchTrack : Form
 	{
 		private const string WorkingDirectory = "";
 		private const string ScheduleFileName = "Schedule.txt";
 		private const string MatchDataFileName = "MatchData.csv";
 
-		private Schedule _schedule;
-		private RobotData _robotData;
-		private Analytics _analytics;
-		private CDataCollector _dataCollector;
-		private List<int> _teamList = new List<int>();
-		private Dictionary<int, int> _buttonToScoreMap;
-		Timer _PollingTimer;
+		private readonly CDataCollector _dataCollector;
+		private Timer _pollingTimer;
+
+		private Schedule	_schedule;
+		private RobotData	_robotData;
+		private Analytics	_analytics;
+		private readonly List<int>	_teamList = new List<int>();
+		private readonly Dictionary<int, int> _buttonToScoreMap;
 
 		static public List<string> ScoreArrayLabels = new List<string>()
 		{
@@ -37,7 +32,8 @@ namespace FRCScouting
 			//"Auton HAB Level","Auton Cargo","Auton Hatch","Teleop Cargo","Teleop Hatch","Cargo Dropped","Hatches Dropped","Teleop HAB Level", "Perf. Factor" ,"Match Score", "Match RPs"
 		};
 
-		public Form1()
+		// constructor
+		public FRCMatchTrack()
 		{
 			InitializeComponent();
 
@@ -64,7 +60,7 @@ namespace FRCScouting
 
 		}
 
-		private void Form1_Load(object sender, EventArgs e)
+		private void MatchTrack_Load(object sender, EventArgs e)
 		{
 			_schedule = new Schedule();
 			if (!_schedule.Load($"{WorkingDirectory}{ScheduleFileName}", _teamList))
@@ -76,12 +72,13 @@ namespace FRCScouting
 			_robotData = new RobotData();
 			_robotData.LoadData($"{WorkingDirectory}{MatchDataFileName}");
 
-			cbMatchMode.SelectedIndex = 0;
+			MatchModeCombo.SelectedIndex = 0;
+			EditGroup.Enabled = false;
 
-			_PollingTimer = new Timer();
-			_PollingTimer.Enabled = true;
-			_PollingTimer.Interval = Convert.ToInt16(250);
-			_PollingTimer.Tick += new EventHandler(PollingEvent);
+			_pollingTimer = new Timer();
+			_pollingTimer.Enabled = true;
+			_pollingTimer.Interval = Convert.ToInt16(250);
+			_pollingTimer.Tick += new EventHandler(PollingEvent);
 
 			_analytics = new Analytics();
 			_analytics.Load(_robotData);
@@ -133,7 +130,7 @@ namespace FRCScouting
 				_dataCollector.Mode != MatchMode.Teleop && _dataCollector.Mode != MatchMode.Edit)
 				return;
 
-			_PollingTimer.Enabled = false;
+			_pollingTimer.Enabled = false;
             
 			foreach (var controller in _dataCollector.Controllers)
 			{
@@ -146,12 +143,12 @@ namespace FRCScouting
 				int colIndex = 0;
 				if (controller.ID >= 1 && controller.ID <= 3)
 				{
-					dataGrid = dgvRed;
+					dataGrid = RedGrid;
 					colIndex = controller.ID-1;
 				}
 				else if (controller.ID >= 4 && controller.ID <= 6)
 				{
-					dataGrid = dgvBlue;
+					dataGrid = BlueGrid;
 					colIndex = controller.ID - 4;
 				}
 				else
@@ -231,7 +228,7 @@ namespace FRCScouting
 
                 }
             }
-            _PollingTimer.Enabled = true;
+            _pollingTimer.Enabled = true;
         }
 
         private void UpDownMatch_ValueChanged(object sender, EventArgs e)
@@ -246,46 +243,47 @@ namespace FRCScouting
 
         private void setTeam(int matchNumber)
         {
-			SetupMatchGrids(dgvBlue, _schedule.MatchList[matchNumber].BlueTeams);
-			SetupMatchGrids(dgvRed, _schedule.MatchList[matchNumber].RedTeams);
+			SetupMatchGrids(BlueGrid, _schedule.MatchList[matchNumber].BlueTeams);
+			SetupMatchGrids(RedGrid, _schedule.MatchList[matchNumber].RedTeams);
         }
 
 		private void SetupMatchGrids(DataGridView grid, int[] teamID)
 		{
-			grid.ColumnCount = 3;
+			grid.RowHeadersVisible = false;
+			grid.ColumnCount = 4;
 			grid.Rows.Clear();
 			for (int i = 0; i < 3; i++)
 			{
-				grid.Columns[i].Name = teamID[i].ToString();
-				grid.Columns[i].Width = 100;
+				grid.Columns[i+1].HeaderText = teamID[i].ToString();
+				grid.Columns[i+1].Width = 75;
 			}
 
 			for (int j = 0; j < 8; j++)
 			{
 				string temp = "0";
 
-				grid.Rows.Add(new string[3]
+				grid.Rows.Add(new string[4]
 				{
-					temp,temp,temp
+					temp,temp,temp,temp
 				});
-				grid.Rows[j].Height = 65;
-				grid.Rows[j].HeaderCell.Value = ScoreArrayLabels[j];
+				grid.Rows[j].Height = 30;
+				grid.Rows[j].Cells[0].Value = ScoreArrayLabels[j];
 			}
-			grid.RowHeadersWidth = 150;
+			grid.Columns[0].Width = 175;
 			grid.ReadOnly = true;
-			grid.RowHeadersVisible = true;
 		}
 
 		private void cbMatchMode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var index = cbMatchMode.SelectedIndex;
-            btnNextMode.Enabled = index < cbMatchMode.Items.Count - 1;
+            var index = MatchModeCombo.SelectedIndex;
+            btnNextMode.Enabled = index < MatchModeCombo.Items.Count - 1;
             _dataCollector.SetMode((MatchMode)index);
+			EditGroup.Enabled = MatchModeCombo.Text == "Edit";
         }
 
         private void btn2NextMode_Click(object sender, EventArgs e)
         {
-            cbMatchMode.SelectedIndex += 1;
+            MatchModeCombo.SelectedIndex += 1;
         }
         
         private void btnSaveMatchData_Click(object sender, EventArgs e) 
@@ -302,7 +300,7 @@ namespace FRCScouting
                 #region Blue Table
                 for (int j = 0; j < 8; j++)
                 {   
-                    tempMatchData.ScoreArray[j] = Convert.ToInt32(dgvBlue[i, j].Value);
+                    tempMatchData.ScoreArray[j] = Convert.ToInt32(BlueGrid[i, j].Value);
                 }
                 #endregion
 
@@ -320,14 +318,14 @@ namespace FRCScouting
                 #region Blue Table
                 for (int j = 0; j < 8; j++)
                 {
-                    temp.ScoreArray[j] = Convert.ToInt32(dgvBlue[i, j].Value);
+                    temp.ScoreArray[j] = Convert.ToInt32(BlueGrid[i, j].Value);
                 }
                 #endregion
 
                 _robotData.MatchDataList.Add(temp);
             }
             //Change button color to signal that data has been loaded
-            btnSaveData.BackColor = Color.Green;
+            SaveButton.BackColor = Color.Green;
             _robotData.SaveData($"{WorkingDirectory}{MatchDataFileName}", (getMatchNumber() + 1));
         }
 
@@ -376,10 +374,10 @@ namespace FRCScouting
 
         private void btnNextMatch_Click(object sender, EventArgs e)
         {
-            btnSaveData.BackColor = Color.Beige;
+            SaveButton.BackColor = Color.Beige;
             UpDownMatch.Value++;
           
-            cbMatchMode.SelectedIndex = 0;
+            MatchModeCombo.SelectedIndex = 0;
             _dataCollector.SetMode(MatchMode.Reset);
             
             setTeam(getMatchNumber());
@@ -389,6 +387,51 @@ namespace FRCScouting
         {
 
         }
-    }
+
+		private void FRCMatchTrack_Resize(object sender, EventArgs e)
+		{
+			BlueGrid.Width = (BlueGrid.Parent.Width - 25) / 2;
+		}
+
+		
+		private void DecreaseButton_Click(object sender, EventArgs e)
+		{
+			if (!int.TryParse((string)_selectedCell.Value, out var cellVal))
+				cellVal = 0;
+			if (cellVal > 0)
+				cellVal--;
+			_selectedCell.Value = cellVal.ToString();
+
+		}
+
+		private void IncreaseButton_Click(object sender, EventArgs e)
+		{
+			if (!int.TryParse((string)_selectedCell.Value, out var cellVal))
+				cellVal = 0;
+			if (cellVal < 100)
+				cellVal++;
+			_selectedCell.Value = cellVal.ToString();
+		}
+
+		private void BlueGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+		{
+
+		}
+
+		private DataGridView _selectedGrid;
+		private DataGridViewCell _selectedCell;
+		private void Grid_SelectionChanged(object sender, EventArgs e)
+		{
+			var grid = (DataGridView)sender;
+			if (_selectedCell != null)
+				_selectedCell.Selected = false;
+			_selectedGrid = grid;
+			_selectedCell = grid.CurrentCell;
+
+			var editEnabled = MatchModeCombo.Text == "Edit" && _selectedCell.ColumnIndex > 0;
+			IncreaseButton.Enabled = editEnabled;
+			DecreaseButton.Enabled = editEnabled;
+		}
+	}
 
 }

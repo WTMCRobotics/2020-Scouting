@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FRCScouting
 {
-	partial class Form1
+	partial class FRCMatchTrack
 	{
 
 

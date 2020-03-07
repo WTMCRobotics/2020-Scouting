@@ -68,7 +68,7 @@ namespace FRCScouting
 											 // Console.WriteLine("Run " + count); //For testing
 					matchNumber++;
 				}
-				if (matchList.Count != 82)
+				if (matchList.Count != 80)
 				{
 					MessageBox.Show($"Only {matchList.Count} matches. Closing program!",
 									"FRC Scouting Program",
