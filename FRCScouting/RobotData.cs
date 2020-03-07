@@ -128,7 +128,7 @@ namespace FRCScouting
 				return false;
 			}
 
-			using (var file = new StreamReader(dataFile))
+			using (var file = new StreamReader(dataFile)) //TODO: Write exception when data does not match expected format
 			{
 				var line = "";
 				var count = 1;
@@ -161,11 +161,13 @@ namespace FRCScouting
 					count++;
 
 					MatchDataList.Add(newMatchData);
-				}
-
+                    LastSavedIndex = MatchDataList.Count; //TODO: See if there's a way to check if a list exists C#
+                    //Console.Write($"Last Saved Index: {LastSavedIndex}");
+                }
+                
 				file.Close();
-
 			}
+
 			return true;
 
 			/* FOR TESTING

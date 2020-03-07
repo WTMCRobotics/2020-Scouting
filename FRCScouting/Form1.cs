@@ -28,11 +28,13 @@ namespace FRCScouting
 
 		static public List<string> ScoreArrayLabels = new List<string>()
 		{
-			"Auton HAB Level","Auton Cargo","Auton Hatch","Teleop Cargo","Teleop Hatch","Cargo Dropped","Hatches Dropped","Teleop HAB Level"
+            "Auton line","Auton low ball","Auton high ball","Teleop low ball","Teleop high ball","Teleop hanging","Teleop detailed spin","Teleop long spin"  
+			//"Auton HAB Level","Auton Cargo","Auton Hatch","Teleop Cargo","Teleop Hatch","Cargo Dropped","Hatches Dropped","Teleop HAB Level"
 		};
 		static public List<string> RankingGridLabels = new List<string>()
 		{
-			"Auton HAB Level","Auton Cargo","Auton Hatch","Teleop Cargo","Teleop Hatch","Cargo Dropped","Hatches Dropped","Teleop HAB Level", "Perf. Factor" ,"Match Score", "Match RPs"
+            "Auton line","Auton low ball","Auton high ball","Teleop low ball","Teleop high ball","Teleop hanging","Teleop detailed spin","Teleop long spin","Perf. Factor","Match Score","Match RPs" 
+			//"Auton HAB Level","Auton Cargo","Auton Hatch","Teleop Cargo","Teleop Hatch","Cargo Dropped","Hatches Dropped","Teleop HAB Level", "Perf. Factor" ,"Match Score", "Match RPs"
 		};
 
 		public Form1()
@@ -166,7 +168,7 @@ namespace FRCScouting
 
                     int buttonCount = 0;
 
-                    if (countIndex == 5 || countIndex == 6) //For Middle Buttons which work in both modes
+                    if (countIndex == 5 || countIndex == 6) //For Middle Buttons which work in both modes //TODO: Change this as our button setup this year is different
                     {
                         buttonCount = controller.AutonCounts[buttonID] + controller.TeleopCounts[buttonID];
                         if (_dataCollector.Mode == MatchMode.Edit)
@@ -197,7 +199,7 @@ namespace FRCScouting
                         if (buttonID < 0x10)
 
                         {
-                            buttonCount = NegativeWraparound(controller.AutonCounts[buttonID] - controller.EditCounts[buttonID], 5);
+                            buttonCount = NegativeWraparound(controller.AutonCounts[buttonID] - controller.EditCounts[buttonID], 5); //TODO: update the max
 
                             dataGrid[colIndex, countIndex].Value = buttonCount;
                         }
@@ -205,7 +207,7 @@ namespace FRCScouting
                         if (buttonID >= 0x10)
 
                         {
-                            buttonCount = NegativeWraparound(controller.TeleopCounts[buttonID & 0x0f] - controller.EditCounts[buttonID & 0x0f], 12);
+                            buttonCount = NegativeWraparound(controller.TeleopCounts[buttonID & 0x0f] - controller.EditCounts[buttonID & 0x0f], 12); //TODO: Update the max
                             dataGrid[colIndex, countIndex].Value = buttonCount;
 
                         }
