@@ -388,11 +388,6 @@ namespace FRCScouting
 
         }
 
-		private void FRCMatchTrack_Resize(object sender, EventArgs e)
-		{
-			BlueGrid.Width = (BlueGrid.Parent.Width - 25) / 2;
-		}
-
 		
 		private void DecreaseButton_Click(object sender, EventArgs e)
 		{
@@ -413,19 +408,12 @@ namespace FRCScouting
 			_selectedCell.Value = cellVal.ToString();
 		}
 
-		private void BlueGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-		{
-
-		}
-
-		private DataGridView _selectedGrid;
 		private DataGridViewCell _selectedCell;
 		private void Grid_SelectionChanged(object sender, EventArgs e)
 		{
 			var grid = (DataGridView)sender;
 			if (_selectedCell != null)
 				_selectedCell.Selected = false;
-			_selectedGrid = grid;
 			_selectedCell = grid.CurrentCell;
 
 			var editEnabled = MatchModeCombo.Text == "Edit" && _selectedCell.ColumnIndex > 0;

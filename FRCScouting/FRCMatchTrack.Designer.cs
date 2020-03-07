@@ -184,7 +184,6 @@
 			this.BlueGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
 			this.BlueGrid.Size = new System.Drawing.Size(430, 314);
 			this.BlueGrid.TabIndex = 11;
-			this.BlueGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BlueGrid_CellDoubleClick);
 			this.BlueGrid.SelectionChanged += new System.EventHandler(this.Grid_SelectionChanged);
 			// 
 			// Item
@@ -661,7 +660,6 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "FRC MatchTrack";
 			this.Load += new System.EventHandler(this.MatchTrack_Load);
-			this.Resize += new System.EventHandler(this.FRCMatchTrack_Resize);
 			((System.ComponentModel.ISupportInitialize)(this.UpDownMatch)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.BlueGrid)).EndInit();
 			this.tabControl.ResumeLayout(false);
