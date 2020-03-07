@@ -237,8 +237,8 @@ void PollButtons()
 				_autonCount[i]++;
 			else if (_matchMode == matchTeleop)
 				_teleopCount[i]++;
-      else if (_matchMode == matchEdit)
-        _editCount[i]++;
+			else if (_matchMode == matchEdit)
+				_editCount[i]++;
 			digitalWrite(13, HIGH);
 			delay(10);
 			digitalWrite(13, LOW);
